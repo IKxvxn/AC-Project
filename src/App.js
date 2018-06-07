@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import SpeechRecognition from 'react-speech-recognition'
-import 'antd/dist/antd.css';
 import HomeLayout from './components/home/homeLayout'
 
 class App extends Component {
@@ -13,4 +11,4 @@ class App extends Component {
   }
 }
 
-export default SpeechRecognition(App);
+export default App;
