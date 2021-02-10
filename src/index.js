@@ -7,6 +7,7 @@ import App from './App';
 import Spanish from 'antd/lib/locale-provider/es_ES';
 import Store from './Store'
 import registerServiceWorker from './registerServiceWorker';
+import './style/antd.css'
 
 ReactDOM.render(
 

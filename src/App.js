@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom'
 import HomeLayout from './components/home/homeLayout'
+import LoginLayout from './components/login/loginLayout'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <HomeLayout transcript={this.props.transcript} abortListening={this.props.abortListening} startListening={this.props.startListening} resetTranscript ={this.props.resetTranscript } stopListening ={this.props.stopListening } listening={this.props.listening}/>
+        <Switch>
+          <Route exact path='/' render={() => <LoginLayout />} />
+          <Route exact path='/Perfil' render={() => <HomeLayout />} />
+        </Switch>
       </div>
     );
   }
