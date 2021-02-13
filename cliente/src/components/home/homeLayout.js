@@ -14,7 +14,6 @@ const { SubMenu } = Menu;
 
 class homeLayout extends Component {
 
-
   constructor(props) {
     super(props);
 

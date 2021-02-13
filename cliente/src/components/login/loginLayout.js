@@ -1,49 +1,41 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { Form, Input, Button, Divider, Row, Card, Col } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Row, Card, Col } from 'antd'
+import LoginForm from './loginForm'
+import CreateAccountForm from './createAccountForm'
 import * as LoginActions from './loginActions'
-import logo from "../../images/book.png"
-import * as Rules from './loginFormRules'
 import * as Style from '../../style/myStyle'
-
 
 class loginLayout extends Component {
 
-  onFinish = (values) => {
-    console.log('Received values of form: ', values);
-    this.props.login(this.props.history);
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loginMode: true,
+    }
+  }
+
+  createAccountMode = () => {
+    this.setState({
+      loginMode: false,
+    });
+  };
+
+  loginMode = () => {
+    this.setState({
+      loginMode: true,
+    });
   };
 
   render() {
 
     return (
       <Row type="flex" justify="center" align="middle" style={Style.loginMainRow}>
-
-        <Col xs={24} sm={24} md={8} lg={6} xl={4}>
+        <Col xs={24} sm={24} md={12} lg={8} xl={6}>
           <Card>
-            <Form onFinish={this.onFinish}>
-
-              <Form.Item className="logo" style={Style.loginLogoContainer}>
-                <img style={Style.loginLogo} alt="logo" src={logo} />
-              </Form.Item>
-
-              <Form.Item name="username" rules={Rules.username}>
-                <Input prefix={<UserOutlined />} placeholder="Usuario" />
-              </Form.Item>
-
-              <Form.Item name="password" rules={Rules.password}>
-                <Input prefix={<LockOutlined />} type="password" placeholder="Contraseña" />
-              </Form.Item>
-
-              <Form.Item>
-                <Button type="primary" htmlType="submit" block loading={this.props.isLoading}>Ingresar</Button>
-                <Divider plain style={Style.loginDivider}>O</Divider>
-                <Button htmlType="submit" block>Crear cuenta</Button>
-              </Form.Item>
-
-            </Form>
+            {this.state.loginMode ? <LoginForm changeMode={this.createAccountMode} isLoading={this.props.isLoading} /> : <CreateAccountForm changeMode={this.loginMode} isLoading={this.props.isLoading} />}
           </Card>
         </Col>
       </Row>

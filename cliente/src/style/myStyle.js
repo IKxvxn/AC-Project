@@ -30,8 +30,8 @@ export const homeLayoutBreadcrumb = {
 }
 
 export const HomeLayoutMenu = {
-  position: 'fixed', 
-  zIndex: 1, width: '100%', 
+  position: 'fixed',
+  zIndex: 1, width: '100%',
   padding: '0 0'
 }
 
@@ -45,21 +45,21 @@ export const cardStyle = {
 }
 
 export const repasosMainDividerAffix = {
-  width: "100%", 
+  width: "100%",
   background: "#fff"
 }
 
 //login
 export const loginMainRow = {
-  minHeight: '100vh', 
-  backgroundImage : "url(" + loginBackgroundPattern + ")", 
-  backgroundRepeat : "repeat", 
-  backgroundSize : "30rem" 
+  minHeight: '100vh',
+  backgroundImage: "url(" + loginBackgroundPattern + ")",
+  backgroundRepeat: "repeat",
+  backgroundSize: "10rem"
 }
 
 export const loginLogoContainer = {
-  textAlign : "center",
-  display : "block" 
+  textAlign: "center",
+  display: "block"
 }
 
 export const loginLogo = {
@@ -69,11 +69,16 @@ export const loginLogo = {
 }
 
 export const loginButton = {
-  width: "100%" 
+  width: "100%"
 }
 
 export const loginDivider = {
-  margin : "0 0 -.01rem 0" 
+  margin: "1rem 0 .5rem 0"
+}
+
+export const buttonWraper = {
+  whiteSpace: "normal",
+  height: 'auto'
 }
 
 
