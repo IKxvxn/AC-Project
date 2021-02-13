@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { Form, Input, Button, Divider } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import logo from "../../images/book.png"
+import LoginLogo from './loginLogo'
 import * as Rules from './loginFormRules'
 import * as Style from '../../style/myStyle'
 
 class createAccountForm extends Component {
 
-  onFinish = (values) => {
-    console.log('Received values of form: ', values);
-    this.props.login(this.props.history);
+  onFinish = (datos) => {
+    console.log('Received values of form: ', datos);
+    this.props.crearCuenta(datos);
   };
 
   render() {
@@ -17,7 +17,7 @@ class createAccountForm extends Component {
       <Form onFinish={this.onFinish}>
 
         <Form.Item className="logo" style={Style.loginLogoContainer}>
-          <img style={Style.loginLogo} alt="logo" src={logo} />
+          <LoginLogo />
         </Form.Item>
 
         <Form.Item name="username" rules={Rules.newUsername}>

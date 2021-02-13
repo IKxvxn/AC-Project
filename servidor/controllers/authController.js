@@ -21,8 +21,9 @@ function ingresar(req, res) {
 }
 
 function crearCuenta(req, res) {
-  var usuario = req.body
-  res.status(500);res.send({error:true, type:1})
+  const usuario = req.body
+  console.log(req.body)
+  res.status(500);res.send({error:true, message:"No se ha podido crear la cuenta"})
 }
 
 function autentificarAccion(JWT) {
@@ -30,7 +31,7 @@ function autentificarAccion(JWT) {
 }
 
 module.exports = {
-  ingresar, autentificarAccion 
+  ingresar, autentificarAccion, crearCuenta
 }
 
 

@@ -1,0 +1,1 @@
+export const AUTH = 'http://localhost:8079/auth'

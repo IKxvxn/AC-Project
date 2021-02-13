@@ -81,4 +81,10 @@ export const buttonWraper = {
   height: 'auto'
 }
 
+export const logoText = {
+  fontSize: "2rem",
+  fontWeight: "bold",
+  color: "#326c9f"
+}
+
 

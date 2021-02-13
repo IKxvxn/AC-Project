@@ -35,7 +35,9 @@ class loginLayout extends Component {
       <Row type="flex" justify="center" align="middle" style={Style.loginMainRow}>
         <Col xs={24} sm={24} md={12} lg={8} xl={6}>
           <Card>
-            {this.state.loginMode ? <LoginForm changeMode={this.createAccountMode} isLoading={this.props.isLoading} /> : <CreateAccountForm changeMode={this.loginMode} isLoading={this.props.isLoading} />}
+            {this.state.loginMode ?
+              <LoginForm changeMode={this.createAccountMode} isLoading={this.props.isLoading} /> :
+              <CreateAccountForm crearCuenta={this.props.crearCuenta} changeMode={this.loginMode} isLoading={this.props.isLoading} />}
           </Card>
         </Col>
       </Row>
@@ -52,9 +54,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    login: (history) => dispatch(LoginActions.login(history))
+    crearCuenta: (usuario) => dispatch(LoginActions.crearCuenta(usuario))
   }
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(loginLayout))
-

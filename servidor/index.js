@@ -1,8 +1,10 @@
 require('dotenv').config()
-const app = require('express')()
+const express = require('express')
 const mongoose = require('mongoose')
-
+const cors = require('cors')
 const authRoute = require('./routes/authRoute')
+
+const app = express()
 
 
 //const homeRoute = require('./routes/homeRoute')
@@ -14,6 +16,9 @@ mongoose.connect(
   "mongodb+srv://master:Imaster@cluster0.r3eqn.mongodb.net/RCProject?retryWrites=true&w=majority",
   { useNewUrlParser: true, useUnifiedTopology: true }
 );
+
+app.use(cors())
+app.use(express.json());
 
 //app.use('/home', homeRoute)
 app.use('/auth', authRoute)
