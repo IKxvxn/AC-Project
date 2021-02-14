@@ -7,9 +7,8 @@ import * as Style from '../../style/myStyle'
 
 class loginForm extends Component {
 
-    onFinish = (values) => {
-        console.log('Received values of form: ', values);
-        this.props.login(this.props.history);
+    onFinish = (datos) => {
+        this.props.login(datos, this.props.history);
     };
 
     render() {

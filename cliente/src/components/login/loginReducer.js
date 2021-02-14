@@ -12,6 +12,16 @@ const loginReducer = (state = DEFAULT_STATE, action) => {
                 ...state,
                 isLoading: true
             }
+        case Acciones.LOGIN_SUCCESS:
+            return {
+                ...state,
+                user: action.user,
+            }
+        case Acciones.LOGIN_FAILURE:
+            return {
+                ...state,
+                isLoading: false
+            }
         case Acciones.CREATE_ACCOUNT_REQUEST:
             return {
                 ...state,
@@ -21,6 +31,21 @@ const loginReducer = (state = DEFAULT_STATE, action) => {
             return {
                 ...state,
                 isLoading: false
+            }
+        case Acciones.CREATE_ACCOUNT_SUCCESS:
+            return {
+                ...state,
+                isLoading: false
+            }
+        case Acciones.LOAD_USER_STATE:
+            return {
+                isLoading: false,
+                user: action.user
+            }
+        case Acciones.LOGOUT_REQUEST:
+            return {
+                ...state,
+                user: action.user
             }
         default:
             return state

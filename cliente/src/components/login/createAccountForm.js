@@ -8,7 +8,6 @@ import * as Style from '../../style/myStyle'
 class createAccountForm extends Component {
 
   onFinish = (datos) => {
-    console.log('Received values of form: ', datos);
     this.props.crearCuenta(datos);
   };
 

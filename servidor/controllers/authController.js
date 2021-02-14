@@ -3,27 +3,51 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const config = require('../config')
 const usuarioModel = require('../models/usuarioModel')
-
-
+const ResponseMessages = require('../assets/responseMessages')
+const ResponseBuilder = require('../assets/responseBuilder')
+const Tools = require('../assets/tools')
 
 function ingresar(req, res) {
-  var usuario = req.body
-  usuarioModel.findById(usuario.usuario).then((user)=>{
-      if(!user){res.status(500);res.send({error:true, type:0})}
-      else if(bcrypt.compareSync(usuario.contraseña,user.contraseña)){
-        res.status(200);res.send({error:false,usuario:{usuario:usuario.usuario,tipo:user.tipo,token:jwt.sign({ id: usuario.usuario }, config.pass, {expiresIn: 86400})}});
-      }
-      else{res.status(500);res.send({error:true, type:1})}
-    }).catch(error => {
-      console.log(error)
-    })
+
+  const username = req.params.username
+  const password = req.params.password
+
+  usuarioModel.findById(Tools.normaliceUsername(username)).then((userDB) => {
+    if (!userDB) {
+      ResponseBuilder.sendErrorResponse(res, ResponseMessages.loginError)
+    }
+    else if (bcrypt.compareSync(password, userDB.password)) {
+      ResponseBuilder.sendSuccessResponse(res, ResponseMessages.loginSuccess + userDB._id, {
+        username: userDB._id,
+        token: jwt.sign({ id: username }, config.pass, { expiresIn: 86400 })
+      })
+    }
+    else {
+      ResponseBuilder.sendErrorResponse(res, ResponseMessages.loginError)
+    }
+  }).catch(error => {
+    ResponseBuilder.sendErrorResponse(res, ResponseMessages.getMongoMessageByErrorCode(error.code))
+  })
 
 }
 
 function crearCuenta(req, res) {
   const usuario = req.body
-  console.log(req.body)
-  res.status(500);res.send({error:true, message:"No se ha podido crear la cuenta"})
+
+  if (!usuario.username || !usuario.password) {
+    ResponseBuilder.sendErrorResponse(res, ResponseMessages.dataError)
+  }
+
+  let newUsuario = new usuarioModel({ password: bcrypt.hashSync(usuario.password, 8), _id: Tools.normaliceUsername(usuario.username) })
+
+  newUsuario.save((error, resp) => {
+    if (error) {
+      ResponseBuilder.sendErrorResponse(res, ResponseMessages.getMongoMessageByErrorCode(error.code))
+    }
+    else {
+      ResponseBuilder.sendSuccessResponse(res, ResponseMessages.createAccountSuccess, {})
+    }
+  })
 }
 
 function autentificarAccion(JWT) {

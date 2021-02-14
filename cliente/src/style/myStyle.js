@@ -35,6 +35,11 @@ export const HomeLayoutMenu = {
   padding: '0 0'
 }
 
+export const homeLogoutButton = {
+  float: 'right', 
+  margin: "0 1.5rem 0 0"
+}
+
 //repasos
 export const responsiveRow = {
   xs: 8, sm: 16, md: 24, lg: 32
@@ -47,6 +52,16 @@ export const cardStyle = {
 export const repasosMainDividerAffix = {
   width: "100%",
   background: "#fff"
+}
+
+export const homeLogoText = {
+  fontSize: "1.4rem",
+  fontWeight: "bold",
+  color: "#326c9f"
+}
+
+export const homeMenuText = {
+  fontSize: "1rem",
 }
 
 //login

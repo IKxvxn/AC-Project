@@ -7,6 +7,7 @@ import * as Style from '../../style/myStyle'
 class moduleSubsection extends Component {
 
   render() {
+    
     return (
       <Collapse.Panel {...this.props} showArrow={false} header={<b>{this.props.subsectionName}</b>} key={this.props.subsectionKey}>
         <Row gutter={Style.responsiveRow} justify="start">

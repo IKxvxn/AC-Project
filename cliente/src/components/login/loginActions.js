@@ -1,6 +1,7 @@
 import { message } from 'antd';
 import * as API_ROUTES from '../../assets/API_Routes'
-import logo from "../../images/logo.png"
+import * as CLIENT_ROUTES from '../../assets/clientRoutes'
+import * as LocalStorage from '../../assets/localStorage'
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
@@ -14,6 +15,38 @@ export const LOAD_USER_STATE = 'LOAD_USER_STATE'
 
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
 
+export function login(usuario, history) {
+    return function (dispatch) {
+        dispatch({
+            type: LOGIN_REQUEST
+        })
+        fetch(API_ROUTES.AUTH + "/account/"+usuario.username+"/"+usuario.password, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        })
+            .then(response => response.json())
+            .then(datos => {
+                if(datos.error){
+                    message.error(datos.message)
+
+                    dispatch({
+                        type: LOGIN_FAILURE
+                    })
+                }
+                else {
+                    message.success(datos.message)
+
+                    history.push(CLIENT_ROUTES.homeRoute)
+                    LocalStorage.saveState({user:datos.data})
+
+                    dispatch({
+                        user: datos.data,
+                        type: LOGIN_SUCCESS
+                    })
+                }
+            })
+    }
+}
 
 export function crearCuenta(usuario) {
     return function (dispatch) {
@@ -34,46 +67,45 @@ export function crearCuenta(usuario) {
                         type: CREATE_ACCOUNT_FAILURE
                     })
                 }
+                else {
+                    message.success(datos.message)
+                    dispatch({
+                        type: CREATE_ACCOUNT_SUCCESS,
+                    })
+                }
             })
     }
 }
 
-/*export function ingresar(usuario, history) {
+export function loadSessionState(history) {
     return function (dispatch) {
+
+        let user = LocalStorage.loadState()
+
+        if(Object.keys(user).length === 0 & window.location.pathname.localeCompare(CLIENT_ROUTES.rootRoute)) {
+            history.push(CLIENT_ROUTES.rootRoute)
+        }
+        else if(Object.keys(user).length != 0 & !window.location.pathname.localeCompare(CLIENT_ROUTES.rootRoute)){
+            history.push(CLIENT_ROUTES.homeRoute)
+        }
+
         dispatch({
-            type: NEW_LOGIN_REQUEST
+            user: user,
+            type: LOAD_USER_STATE
         })
-        fetch(API_URL + "/ingresar", {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(usuario),
-        })
-            .then(response => response.json())
-            .then(usuario => {
-                if (usuario.error) {
-                    if (usuario.type === 0) {
-                        message.error("El usuario no existe en el sistema")
-                    }
-                    else {
-                        message.error("La contraseña proporcionada es incorrecta")
-                    }
-                    dispatch({ type: NEW_LOGIN_FAILURE })
-                }
-                else {
-                    message.success("Bienvenido nuevamente " + usuario.usuario.usuario)
-                    history.push('/home/espera')
-                    dispatch({
-                        type: NEW_LOGIN_SUCCESS,
-                        usuario: usuario.usuario
-                    })
-                }
-            })
-            .catch(error => {
-                message.error(Mensajes.errorConexion)
-                dispatch({
-                    type: NEW_LOGIN_FAILURE,
-                    error: error
-                })
-            })
     }
-}*/
+}
+
+export function logout(history) {
+    return function (dispatch) {
+
+        LocalStorage.removeState()
+
+        history.push(CLIENT_ROUTES.rootRoute)
+
+        dispatch({
+            user: {},
+            type: LOGOUT_REQUEST
+        })
+    }
+}

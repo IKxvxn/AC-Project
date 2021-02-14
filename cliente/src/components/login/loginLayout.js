@@ -36,7 +36,7 @@ class loginLayout extends Component {
         <Col xs={24} sm={24} md={12} lg={8} xl={6}>
           <Card>
             {this.state.loginMode ?
-              <LoginForm changeMode={this.createAccountMode} isLoading={this.props.isLoading} /> :
+              <LoginForm login={this.props.login} history={this.props.history} changeMode={this.createAccountMode} isLoading={this.props.isLoading} /> :
               <CreateAccountForm crearCuenta={this.props.crearCuenta} changeMode={this.loginMode} isLoading={this.props.isLoading} />}
           </Card>
         </Col>
@@ -44,6 +44,11 @@ class loginLayout extends Component {
     );
 
   }
+
+  componentDidMount() {
+    this.props.loadSessionState(this.props.history)
+  }
+
 };
 
 function mapStateToProps(state) {
@@ -54,7 +59,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    crearCuenta: (usuario) => dispatch(LoginActions.crearCuenta(usuario))
+    crearCuenta: (usuario) => dispatch(LoginActions.crearCuenta(usuario)),
+    login: (usuario, history) => dispatch(LoginActions.login(usuario, history)),
+    loadSessionState: (history) => dispatch(LoginActions.loadSessionState(history))
   }
 }
 
