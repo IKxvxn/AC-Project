@@ -102,4 +102,15 @@ export const logoText = {
   color: "#326c9f"
 }
 
+//Cards
 
+export const createDeckForm = {
+  labelCol: { span: 4 },
+  wrapperCol: { span: 20 },
+}
+
+export const createDeckBanner = { 
+  width:"100%", 
+  marginLeft:"auto", 
+  marginRight:"auto" 
+}

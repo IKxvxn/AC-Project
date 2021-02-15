@@ -34,20 +34,21 @@ function ingresar(req, res) {
 function crearCuenta(req, res) {
   const usuario = req.body
 
-  if (!usuario.username || !usuario.password) {
+  if (usuario.username===undefined || usuario.password===undefined) {
     ResponseBuilder.sendErrorResponse(res, ResponseMessages.dataError)
   }
+  else {
+    let newUsuario = new usuarioModel({ password: bcrypt.hashSync(usuario.password, 8), _id: Tools.normaliceUsername(usuario.username) })
 
-  let newUsuario = new usuarioModel({ password: bcrypt.hashSync(usuario.password, 8), _id: Tools.normaliceUsername(usuario.username) })
-
-  newUsuario.save((error, resp) => {
-    if (error) {
-      ResponseBuilder.sendErrorResponse(res, ResponseMessages.getMongoMessageByErrorCode(error.code))
-    }
-    else {
-      ResponseBuilder.sendSuccessResponse(res, ResponseMessages.createAccountSuccess, {})
-    }
-  })
+    newUsuario.save((error, resp) => {
+      if (error) {
+        ResponseBuilder.sendErrorResponse(res, ResponseMessages.getMongoMessageByErrorCode(error.code))
+      }
+      else {
+        ResponseBuilder.sendSuccessResponse(res, ResponseMessages.createAccountSuccess, {})
+      }
+    })
+  }
 }
 
 function autentificarAccion(JWT) {

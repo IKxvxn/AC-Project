@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Input, Button, Divider, Typography } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import LoginLogo from './loginLogo'
-import * as Rules from './loginFormRules'
+import * as Rules from '../../assets/formsRules'
 import * as Style from '../../style/myStyle'
 
 class loginForm extends Component {
@@ -15,7 +15,7 @@ class loginForm extends Component {
         return (
             <Form onFinish={this.onFinish}>
 
-                <Form.Item className="logo" style={Style.loginLogoContainer}>
+                <Form.Item style={Style.loginLogoContainer}>
                     <LoginLogo />
                 </Form.Item>
 

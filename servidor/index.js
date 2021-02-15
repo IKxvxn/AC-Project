@@ -3,12 +3,9 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const authRoute = require('./routes/authRoute')
+const homeRoute = require('./routes/homeRoute')
 
 const app = express()
-
-
-//const homeRoute = require('./routes/homeRoute')
-
 
 app.set('port', process.env.PORT || 8079)
 
@@ -20,7 +17,7 @@ mongoose.connect(
 app.use(cors())
 app.use(express.json());
 
-//app.use('/home', homeRoute)
+app.use('/home', homeRoute)
 app.use('/auth', authRoute)
 
 app.get('/', (req, res) => {

@@ -23,3 +23,4 @@ export const categoriasHistología = [
         {key : "ADLC", nombre:"Angiología de la de la columna vertebral", elementos : ["a", "b", "c"]}
     ]}
 ]
+

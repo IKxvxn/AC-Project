@@ -1,8 +1,12 @@
 const unknownError = "Ha ocurrido un problema en el servidor. Inténtelo más tarde"
 const dataError = "Los datos proporcionados presentan problemas"
 const loginError = "La cuenta no existe o la contraseña proporcionada es incorrecta"
+const tokenError = "Acceso denegado, es necesario que inicie sesión"
+const tokenExpired = "La sesión ha expirado, por favor, vuelva a ingresar"
+
 
 const createAccountSuccess = "La cuenta se ha creado exitosamente"
+const createDeckSucces = "Mazo creado con éxito"
 const loginSuccess = "Bienvenido nuevamente, "
 
 const mongoMessages = {
@@ -18,5 +22,5 @@ function getMongoMessageByErrorCode(code) {
 
 
 module.exports = {
-    getMongoMessageByErrorCode, unknownError, createAccountSuccess, dataError, loginError, loginSuccess
+    getMongoMessageByErrorCode, unknownError, createAccountSuccess, dataError, loginError, loginSuccess, tokenError, createDeckSucces
 }

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter, Link } from 'react-router-dom'
 import { Layout, Menu, Typography } from 'antd';
-import { BookOutlined, BulbOutlined, UserOutlined } from '@ant-design/icons';
+import { BookOutlined, BulbOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux'
 import RepasosLayout from '../repasos/repasosLayout'
 import HomeBreadCrumb from './homeBreadCrumb'
+import CardsLayout from '../cards/cardsLayout'
 import * as LoginActions from '../login/loginActions'
 import * as HomeActions from './homeActions'
 import * as Style from '../../style/myStyle'
-import * as Options from '../../assets/opcionesSeccionRepaso'
 import * as CLIENT_ROUTES from '../../assets/clientRoutes'
 
 const { Header, Content, Footer } = Layout;
@@ -30,14 +30,11 @@ class homeLayout extends Component {
       case CLIENT_ROUTES.accountRoute:
         this.state.actualMenuTab = '2'
         break;
-      case CLIENT_ROUTES.anatoCardsRoute:
+      case CLIENT_ROUTES.cardsRoute:
         this.state.actualMenuTab = '3'
         break;
-      case CLIENT_ROUTES.histoCardsRoute:
-        this.state.actualMenuTab = '4'
-        break;
       case CLIENT_ROUTES.quizzesRoute:
-        this.state.actualMenuTab = '5'
+        this.state.actualMenuTab = '4'
         break;
       default:
         this.state.actualMenuTab = '1'
@@ -66,24 +63,17 @@ class homeLayout extends Component {
                 Cuenta
               </Link>
             </Menu.Item>
-            <SubMenu key="sub1" icon={<BookOutlined />} title="Tarjetas">
-              <Menu.Item key="3" >
-                <Link to={CLIENT_ROUTES.anatoCardsRoute}>
-                  Anatomía
+            <Menu.Item key="3" icon={<BookOutlined />}>
+                <Link to={CLIENT_ROUTES.cardsRoute}>
+                  Tarjetas
                 </Link>
-              </Menu.Item>
-              <Menu.Item key="4" >
-                <Link to={CLIENT_ROUTES.histoCardsRoute}>
-                  Histología
-                </Link>
-              </Menu.Item>
-            </SubMenu>
-            <Menu.Item key="5" icon={<BulbOutlined />}>
+            </Menu.Item>
+            <Menu.Item key="4" icon={<BulbOutlined />}>
               <Link to={CLIENT_ROUTES.quizzesRoute}>
                 Quizzes
               </Link>
             </Menu.Item>
-            <Menu.Item onClick={this.handleLogout} style={Style.homeLogoutButton} key="6" icon={<BulbOutlined />}>
+            <Menu.Item onClick={this.handleLogout} style={Style.homeLogoutButton} key="6" icon={<LogoutOutlined />}>
               Cerrar Sesión
             </Menu.Item>
 
@@ -101,8 +91,7 @@ class homeLayout extends Component {
               <Switch>
                 <Route exact path={CLIENT_ROUTES.homeRoute} render={() => <RepasosLayout sections={[]} />} />
                 <Route exact path={CLIENT_ROUTES.accountRoute} render={() => <RepasosLayout sections={[]} />} />
-                <Route exact path={CLIENT_ROUTES.anatoCardsRoute} render={() => <RepasosLayout sections={Options.categoriasAnatomía} />} />
-                <Route exact path={CLIENT_ROUTES.histoCardsRoute} render={() => <RepasosLayout sections={Options.categoriasHistología} />} />
+                <Route exact path={CLIENT_ROUTES.cardsRoute} render={() => <CardsLayout createDeck={this.props.createDeck} />} />
                 <Route exact path={CLIENT_ROUTES.quizzesRoute} render={() => <RepasosLayout sections={[]} />} />
               </Switch>
             </Content>
@@ -135,7 +124,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     loadSessionState: (history) => dispatch(LoginActions.loadSessionState(history)),
-    logout: (history) => dispatch(LoginActions.logout(history))
+    logout: (history) => dispatch(LoginActions.logout(history)),
+    createDeck: (deck, onSucces) => dispatch(HomeActions.crearMazo(deck, onSucces))
   }
 }
 

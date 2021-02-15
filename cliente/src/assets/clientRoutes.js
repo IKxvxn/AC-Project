@@ -1,6 +1,5 @@
 export const rootRoute = '/'
 export const homeRoute = '/inicio'
 export const accountRoute = homeRoute+'/cuenta'
-export const anatoCardsRoute = homeRoute+'/tarjetas/anatomia'
-export const histoCardsRoute = homeRoute+'/tarjetas/histologia'
+export const cardsRoute = homeRoute+'/tarjetas'
 export const quizzesRoute = homeRoute+'/quizzes' 

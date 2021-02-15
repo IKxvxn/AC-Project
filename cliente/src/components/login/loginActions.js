@@ -1,6 +1,7 @@
 import { message } from 'antd';
 import * as API_ROUTES from '../../assets/API_Routes'
 import * as CLIENT_ROUTES from '../../assets/clientRoutes'
+import * as Messages from '../../assets/mensajes'
 import * as LocalStorage from '../../assets/localStorage'
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
@@ -45,6 +46,12 @@ export function login(usuario, history) {
                     })
                 }
             })
+            .catch(error => {
+                message.error(Messages.serverConecctionError)
+                dispatch({
+                  type: LOGIN_FAILURE,
+                })
+            })
     }
 }
 
@@ -73,6 +80,12 @@ export function crearCuenta(usuario) {
                         type: CREATE_ACCOUNT_SUCCESS,
                     })
                 }
+            })
+            .catch(error => {
+                message.error(Messages.serverConecctionError)
+                dispatch({
+                  type: CREATE_ACCOUNT_FAILURE,
+                })
             })
     }
 }

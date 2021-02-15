@@ -15,7 +15,7 @@ class moduleSection extends Component {
           <Divider style={Style.repasosMainDividerAffix}>{this.props.sectionName}</Divider>
         </Affix>
 
-        <Collapse>
+        <Collapse ghost>
           {this.props.subsections.map(
             function (subsection) { return <ModuleSubsection subsectionKey={subsection.key} subsectionName={subsection.nombre} subsectionElements={subsection.elementos} /> }
           )}

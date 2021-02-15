@@ -12,3 +12,9 @@ export const newPassword = [
     { required: true, message: '🦴 Por favor elija su contraseña' },
     { pattern: "(?=.*?[0-9])(?=.*?[A-Za-z]).+", message: '🦴 Debe contener números y letras' }
 ]
+
+//Create deck
+export const newDeckname = [
+    { required: true, message: '🦴 Por favor elija un nombre para el mazo' },
+    { min: 5, message: '🦴 Número de caracteres mínimo: 5' }
+]
