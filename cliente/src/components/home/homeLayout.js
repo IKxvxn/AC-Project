@@ -65,7 +65,7 @@ class homeLayout extends Component {
             </Menu.Item>
             <Menu.Item key="3" icon={<BookOutlined />}>
                 <Link to={CLIENT_ROUTES.cardsRoute}>
-                  Tarjetas
+                  Mazos
                 </Link>
             </Menu.Item>
             <Menu.Item key="4" icon={<BulbOutlined />}>
@@ -91,7 +91,7 @@ class homeLayout extends Component {
               <Switch>
                 <Route exact path={CLIENT_ROUTES.homeRoute} render={() => <RepasosLayout sections={[]} />} />
                 <Route exact path={CLIENT_ROUTES.accountRoute} render={() => <RepasosLayout sections={[]} />} />
-                <Route exact path={CLIENT_ROUTES.cardsRoute} render={() => <CardsLayout createDeck={this.props.createDeck} />} />
+                <Route exact path={CLIENT_ROUTES.cardsRoute} render={() => <CardsLayout decks={this.props.decks} isLoading={this.props.isLoading} isCreating={this.props.isCreating} createDeck={this.props.createDeck} updateDeck={this.props.updateDeck} deleteDeck={this.props.deleteDeck} />} />
                 <Route exact path={CLIENT_ROUTES.quizzesRoute} render={() => <RepasosLayout sections={[]} />} />
               </Switch>
             </Content>
@@ -109,6 +109,7 @@ class homeLayout extends Component {
   componentDidMount() {
     if(!this.props.isSettingUpAccount){
       this.props.loadSessionState(this.props.history)
+      this.props.getMazos()
     }
   }
 
@@ -117,6 +118,9 @@ class homeLayout extends Component {
 function mapStateToProps(state) {
   return {
     user: state.loginReducer.user,
+    decks: state.homeReducer.decks,
+    isCreating: state.homeReducer.isCreating,
+    isLoading: state.homeReducer.isLoading,
     isSettingUpAccount: state.loginReducer.isLoading
   }
 }
@@ -125,7 +129,10 @@ function mapDispatchToProps(dispatch) {
   return {
     loadSessionState: (history) => dispatch(LoginActions.loadSessionState(history)),
     logout: (history) => dispatch(LoginActions.logout(history)),
-    createDeck: (deck, onSucces) => dispatch(HomeActions.crearMazo(deck, onSucces))
+    createDeck: (deck, onSucces) => dispatch(HomeActions.crearMazo(deck, onSucces)),
+    updateDeck: (deck, onSucces) => dispatch(HomeActions.updateMazo(deck, onSucces)),
+    getMazos: () => dispatch(HomeActions.getMazos()),
+    deleteDeck: (deckId) => dispatch(HomeActions.deleteMazo(deckId))
   }
 }
 

@@ -12,3 +12,10 @@ export const colors = [
     { key: 10, name: "#4c4c4c" },
     { key: 11, name: "#6f6f6f" },
 ]
+
+export const getColorByKey = (key) => {
+    let color = colors.find((x) => x.key === key)
+
+    if (!color) { return colors[0] }
+    return color
+}

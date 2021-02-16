@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Modal, Button, Carousel, Form, Input, Row, Col } from 'antd';
+import { Modal, Button, Form, Input, Row, Col } from 'antd';
 import Deck from './deck'
 import ColorPicker from './colorPicker'
 import ImagePicker from './imagePicker'
@@ -9,16 +9,21 @@ import * as ClientColors from '../../assets/clientColors'
 import * as ClientPets from '../../assets/clientPets'
 
 
-class createDeck extends Component {
+class deckContainer extends Component {
 
-    state = {
-        isModalVisible: false,
-        selectedColor: ClientColors.colors[0],
-        selectedBanner: 0
-    };
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isModalVisible: false,
+            selectedColor: this.props.selectedColor,
+            selectedBanner: this.props.selectedBanner
+        };
+    }
 
     toggleHandler(isModalVisible) {
         this.setState({ isModalVisible });
+        this.setState({selectedColor:this.props.selectedColor, selectedBanner:this.props.selectedBanner})
     }
 
     onColorChange = (selectedColor) => {
@@ -30,24 +35,26 @@ class createDeck extends Component {
     }
 
     onFinish = (datos) => {
-        this.props.createDeck(
-            {...datos, colorKey: this.state.selectedColor.key, bannerKey: this.state.selectedBanner},
+        this.props.onFinish(
+            {...datos, colorKey: this.state.selectedColor.key, bannerKey: ClientPets.pets[this.state.selectedBanner].key, _id:this.props._id},
             () => {this.toggleHandler(false)}
         )
     };
 
     render() {
-
+        console.log(this.props.onDelete)
         return (
             <Fragment>
                 <Deck
-                    deckName="➕ Crear Mazo"
-                    banner={ClientPets.pets[0].route}
-                    create={true} onClick={() => this.toggleHandler(true)}
-                    background={ClientColors.colors[5].name}
+                    deckName={this.props.deckName}
+                    banner={ClientPets.getPetByKey(this.props.selectedBanner).route}
+                    onOpen={() => this.toggleHandler(true)}
+                    onDelete={() => {this.props.onDelete(this.props._id)}}
+                    background={this.props.selectedColor.name}
+                    createMode={this.props.createMode}
                 />
                 <Modal
-                    title="Crear Mazo"
+                    title={this.props.deckName}
                     centered
                     destroyOnClose={true}
                     visible={this.state.isModalVisible}
@@ -57,16 +64,14 @@ class createDeck extends Component {
                     <Form onFinish={this.onFinish} preserve={false}>
 
                         <Form.Item>
-                            <Carousel effect="fade" dotPosition="top" afterChange={this.onBannerChange}>
-                                {ClientPets.pets.map((banner) => (<ImagePicker banner={banner} background={this.state.selectedColor} />))}
-                            </ Carousel>
+                            <ImagePicker onBannerChange={this.onBannerChange} background={this.state.selectedColor} selectedBanner={this.state.selectedBanner} />
                         </Form.Item>
 
                         <Form.Item {...Style.createDeckForm} label="Fondo">
                             {ClientColors.colors.map((color) => (<ColorPicker background={color} onColorChange={this.onColorChange} />))}
                         </Form.Item>
 
-                        <Form.Item {...Style.createDeckForm} name="name" label="Nombre" rules={Rules.newDeckname}>
+                        <Form.Item {...Style.createDeckForm} name="name" label="Nombre" rules={Rules.newDeckname} initialValue={this.props.createMode?null:this.props.deckName}>
                             <Input />
                         </Form.Item>
 
@@ -76,7 +81,7 @@ class createDeck extends Component {
                                     <Button block onClick={() => this.toggleHandler(false)}>Cancelar</Button>
                                 </Col>
                                 <Col xs={24} sm={12} md={6} lg={6} xl={6}>
-                                    <Button type="primary" block htmlType="submit" >Crear</Button>
+                                    <Button type="primary" block htmlType="submit" loading={this.props.isCreating} >{this.props.createMode?"Crear":"Actualizar"}</Button>
                                 </Col>
                             </Row>
                         </Form.Item>
@@ -88,5 +93,4 @@ class createDeck extends Component {
     }
 }
 
-export default createDeck
-
+export default deckContainer

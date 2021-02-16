@@ -1,1 +1,1 @@
-export const serverConecctionError = "No se ha podido establecer conexión con el servidor. Verifica que tienes conexióna internet e inténtalo de nuevo"
+export const serverConecctionError = "No se ha podido establecer conexión con el servidor. Verifica que tienes conexión a internet e inténtalo de nuevo"

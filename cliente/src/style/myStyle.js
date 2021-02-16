@@ -45,10 +45,6 @@ export const responsiveRow = {
   xs: 8, sm: 16, md: 24, lg: 32
 }
 
-export const cardStyle = {
-  margin: "0 0 1.5rem 0"
-}
-
 export const repasosMainDividerAffix = {
   width: "100%",
   background: "#fff"

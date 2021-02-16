@@ -10,7 +10,6 @@ class moduleSubsectionElement extends Component {
 
       <Col xs={24} sm={12} md={6} lg={6} xl={6}>
         <Card
-          style={Style.cardStyle}
           hoverable
           cover={
             <img
