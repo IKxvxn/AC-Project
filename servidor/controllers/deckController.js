@@ -51,7 +51,7 @@ function getDecks(req, res) {
 
   const username = req.params.username
   const token = req.params.token
-
+  console.log(AuthController.autentificarAccion(token))
   if (username === undefined) {
     ResponseBuilder.sendErrorResponse(res, ResponseMessages.dataError)
   }

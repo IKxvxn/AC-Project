@@ -34,7 +34,7 @@ function ingresar(req, res) {
 function crearCuenta(req, res) {
   const usuario = req.body
 
-  if (usuario.username===undefined || usuario.password===undefined) {
+  if (usuario.username === undefined || usuario.password === undefined) {
     ResponseBuilder.sendErrorResponse(res, ResponseMessages.dataError)
   }
   else {
@@ -52,7 +52,12 @@ function crearCuenta(req, res) {
 }
 
 function autentificarAccion(JWT) {
-  return jwt.verify(JWT, config.pass);
+  try {
+    jwt.verify(JWT, config.pass)
+    return true
+  } catch (err) {
+    return false
+  }
 }
 
 module.exports = {

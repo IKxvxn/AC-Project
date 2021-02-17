@@ -42,7 +42,6 @@ class deckContainer extends Component {
     };
 
     render() {
-        console.log(this.props.onDelete)
         return (
             <Fragment>
                 <Deck
