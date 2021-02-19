@@ -45,6 +45,7 @@ class deckContainer extends Component {
         return (
             <Fragment>
                 <Deck
+                    deckId={this.props._id}
                     deckName={this.props.deckName}
                     banner={ClientPets.getPetByKey(this.props.selectedBanner).route}
                     onOpen={() => this.toggleHandler(true)}
@@ -70,7 +71,7 @@ class deckContainer extends Component {
                             {ClientColors.colors.map((color) => (<ColorPicker background={color} onColorChange={this.onColorChange} />))}
                         </Form.Item>
 
-                        <Form.Item {...Style.createDeckForm} name="name" label="Nombre" rules={Rules.newDeckname} initialValue={this.props.createMode?null:this.props.deckName}>
+                        <Form.Item {...Style.createDeckForm} name="name" label="Nombre" rules={Rules.newDeckName} initialValue={this.props.createMode?null:this.props.deckName}>
                             <Input />
                         </Form.Item>
 

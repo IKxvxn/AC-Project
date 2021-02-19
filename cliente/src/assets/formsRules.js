@@ -14,7 +14,23 @@ export const newPassword = [
 ]
 
 //Create deck
-export const newDeckname = [
+export const newDeckName = [
     { required: true, message: '🦴 Por favor elija un nombre para el mazo' },
     { min: 5, message: '🦴 Número de caracteres mínimo: 5' }
+]
+
+//Create card
+export const newCardName = [
+    { required: true, message: '🦴 Por favor elija un nombre para la carta' },
+    { min: 1, message: '🦴 Número de caracteres mínimo: 1' }
+]
+
+export const newDatoName = [
+    { required: true, message: '🦴 Por favor elija un nombre para el dato' },
+    { min: 1, message: '🦴 Número de caracteres mínimo: 1' }
+]
+
+export const newDescripcion = [
+    { required: true, message: '🦴 Por favor elija una descripción para el dato' },
+    { min: 1, message: '🦴 Número de caracteres mínimo: 1' }
 ]

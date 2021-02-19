@@ -4,19 +4,24 @@ import DeckContainer from './deckContainer'
 import * as ClientColors from '../../assets/clientColors'
 import * as ClientPets from '../../assets/clientPets'
 
-class cardsLayout extends Component {
+class deckLayout extends Component {
 
   constructor(props) {
     super(props)
 
     this.state = {
-      filteredData: this.props.decks
+      filteredData: this.props.decks,
+      filter: "",
+      didUpdate: false
     }
   }
 
+  onSearchAux = (filter) => {
+    this.setState({filteredData: this.props.decks.filter(deck => deck.name.toLowerCase().includes(filter)), filter:filter})
+  }
+
   onSearch = (event) => {
-    let filter = event.target.value.toLowerCase()
-    this.setState({filteredData: this.props.decks.filter(deck => deck.name.toLowerCase().includes(filter))})
+    this.onSearchAux( event.target.value.toLowerCase())
   }
 
   render() {
@@ -53,9 +58,16 @@ class cardsLayout extends Component {
     );
   }
   componentWillReceiveProps(props) {
-    this.setState({ filteredData: props.decks })
+    this.setState({ filteredData: props.decks, didUpdate:false })
+  }
+
+  componentDidUpdate() {
+    if(this.state.filter!==""&!this.state.didUpdate){
+      this.onSearchAux(this.state.filter) 
+      this.setState({didUpdate:true})
+    }
   }
 }
 
-export default cardsLayout
+export default deckLayout
 

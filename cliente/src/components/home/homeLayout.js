@@ -5,7 +5,8 @@ import { BookOutlined, BulbOutlined, UserOutlined, LogoutOutlined } from '@ant-d
 import { connect } from 'react-redux'
 import RepasosLayout from '../repasos/repasosLayout'
 import HomeBreadCrumb from './homeBreadCrumb'
-import CardsLayout from '../cards/cardsLayout'
+import DecksLayout from '../deck/decksLayout'
+import CardLayout from '../card/cardLayout'
 import * as LoginActions from '../login/loginActions'
 import * as HomeActions from './homeActions'
 import * as Style from '../../style/myStyle'
@@ -30,7 +31,7 @@ class homeLayout extends Component {
       case CLIENT_ROUTES.accountRoute:
         this.state.actualMenuTab = '2'
         break;
-      case CLIENT_ROUTES.cardsRoute:
+      case CLIENT_ROUTES.decksRoute:
         this.state.actualMenuTab = '3'
         break;
       case CLIENT_ROUTES.quizzesRoute:
@@ -64,7 +65,7 @@ class homeLayout extends Component {
               </Link>
             </Menu.Item>
             <Menu.Item key="3" icon={<BookOutlined />}>
-                <Link to={CLIENT_ROUTES.cardsRoute}>
+                <Link to={CLIENT_ROUTES.decksRoute}>
                   Mazos
                 </Link>
             </Menu.Item>
@@ -91,7 +92,8 @@ class homeLayout extends Component {
               <Switch>
                 <Route exact path={CLIENT_ROUTES.homeRoute} render={() => <RepasosLayout sections={[]} />} />
                 <Route exact path={CLIENT_ROUTES.accountRoute} render={() => <RepasosLayout sections={[]} />} />
-                <Route exact path={CLIENT_ROUTES.cardsRoute} render={() => <CardsLayout decks={this.props.decks} isLoading={this.props.isLoading} isCreating={this.props.isCreating} createDeck={this.props.createDeck} updateDeck={this.props.updateDeck} deleteDeck={this.props.deleteDeck} />} />
+                <Route exact path={CLIENT_ROUTES.decksRoute} render={() => <DecksLayout decks={this.props.decks} isLoading={this.props.isLoading} isCreating={this.props.isCreating} createDeck={this.props.createDeck} updateDeck={this.props.updateDeck} deleteDeck={this.props.deleteDeck} />} />
+                <Route exact path={CLIENT_ROUTES.cardsRoute} render={() => <CardLayout decks={this.props.decks}  />} />
                 <Route exact path={CLIENT_ROUTES.quizzesRoute} render={() => <RepasosLayout sections={[]} />} />
               </Switch>
             </Content>

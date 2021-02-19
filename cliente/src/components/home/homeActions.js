@@ -84,7 +84,7 @@ export function getMazos() {
                     })
                 }
                 else {
-                    sleep(1.5).then( () => { //Esto es sólo para que se note que manejo tiempos de carga
+                    sleep(0).then( () => { //Esto es sólo para que se note que manejo tiempos de carga
                         dispatch({
                             decks: datos.data,
                             type: GET_DECKS_SUCCESS
