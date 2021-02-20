@@ -6,7 +6,7 @@ import ImagePicker from './imagePicker'
 import * as Rules from '../../assets/formsRules'
 import * as Style from '../../style/myStyle'
 import * as ClientColors from '../../assets/clientColors'
-import * as ClientPets from '../../assets/clientPets'
+import * as ClientBanners from '../../assets/clientBanners'
 
 
 class deckContainer extends Component {
@@ -36,7 +36,7 @@ class deckContainer extends Component {
 
     onFinish = (datos) => {
         this.props.onFinish(
-            {...datos, colorKey: this.state.selectedColor.key, bannerKey: ClientPets.pets[this.state.selectedBanner].key, _id:this.props._id},
+            {...datos, colorKey: this.state.selectedColor.key, bannerKey: ClientBanners.banners[this.state.selectedBanner].key, _id:this.props._id},
             () => {this.toggleHandler(false)}
         )
     };
@@ -47,7 +47,7 @@ class deckContainer extends Component {
                 <Deck
                     deckId={this.props._id}
                     deckName={this.props.deckName}
-                    banner={ClientPets.getPetByKey(this.props.selectedBanner).route}
+                    banner={ClientBanners.getBannerByKey(this.props.selectedBanner).banner.large}
                     onOpen={() => this.toggleHandler(true)}
                     onDelete={() => {this.props.onDelete(this.props._id)}}
                     background={this.props.selectedColor.name}

@@ -5,7 +5,7 @@ import Card from './card'
 import * as Rules from '../../assets/formsRules'
 import * as Style from '../../style/myStyle'
 import * as ClientColors from '../../assets/clientColors'
-import * as ClientPets from '../../assets/clientPets'
+import * as ClientBanners from '../../assets/clientBanners'
 
 
 class cardContainer extends Component {
@@ -25,7 +25,7 @@ class cardContainer extends Component {
 
     onFinish = (datos) => {
         this.props.onFinish(
-            { ...datos, colorKey: this.state.selectedColor.key, bannerKey: ClientPets.pets[this.state.selectedBanner].key, _id: this.props._id },
+            { ...datos, colorKey: this.state.selectedColor.key, bannerKey: ClientBanners.banners[this.state.selectedBanner].key, _id: this.props._id },
             () => { this.toggleHandler(false) }
         )
     };
@@ -36,10 +36,10 @@ class cardContainer extends Component {
                 <Card
                     deckId={this.props._id}
                     cardName={this.props.cardName}
-                    banner={ClientPets.getPetByKey(this.props.selectedBanner).route}
+                    banner={this.props.selectedBanner}
                     onOpen={() => this.toggleHandler(true)}
                     onDelete={() => { this.props.onDelete(this.props._id) }}
-                    background={this.props.selectedColor.name}
+                    background={this.props.selectedColor}
                     createMode={this.props.createMode}
                 />
                 <Modal
@@ -75,7 +75,7 @@ class cardContainer extends Component {
 
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                                                     <Form.Item {...field} name={[field.name, 'descripcion']} fieldKey={[field.fieldKey, 'descripcion']} rules={Rules.newDescripcion}>
-                                                        <Input.TextArea rows={4}  placeholder="Descripción" />
+                                                        <Input.TextArea rows={2}  placeholder="Descripción" />
                                                     </Form.Item>
                                                 </Col>
                                             </Row>

@@ -3,6 +3,7 @@ import * as API_ROUTES from '../../assets/API_Routes'
 import * as CLIENT_ROUTES from '../../assets/clientRoutes'
 import * as Messages from '../../assets/mensajes'
 import * as LocalStorage from '../../assets/localStorage'
+import * as homeActions from '../home/homeActions'
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
@@ -40,10 +41,10 @@ export function login(usuario, history) {
                     history.push(CLIENT_ROUTES.homeRoute)
                     LocalStorage.saveState({user:datos.data})
 
-                    dispatch({
+                    Promise.resolve(dispatch({
                         user: datos.data,
                         type: LOGIN_SUCCESS
-                    })
+                    })).then(()=>dispatch(homeActions.getMazos()))
                 }
             })
             .catch(error => {

@@ -14,7 +14,7 @@ export const homeLayoutMainContent = {
 export const homeLayoutSecondaryContent = {
   background: "#fff",
   padding: 24,
-  minHeight: 360
+  minHeight: "80vh"
 }
 
 export const homeMainLayout = {

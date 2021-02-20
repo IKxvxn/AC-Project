@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Carousel } from 'antd';
 import ImagePickerElement from './imagePickerElement'
-import * as ClientPets from '../../assets/clientPets'
+import * as ClientBanners from '../../assets/clientBanners'
 
 class imagePicker extends Component {
 
@@ -14,7 +14,7 @@ class imagePicker extends Component {
     render() {
         return (
             <Carousel effect="fade" dotPosition="top" afterChange={this.props.onBannerChange} ref={this.carouselRef}>
-                {ClientPets.pets.map((banner) => (<ImagePickerElement banner={banner} background={this.props.background} />))}
+                {ClientBanners.banners.map((banner) => (<ImagePickerElement banner={banner} background={this.props.background} />))}
             </ Carousel>
         );
     }

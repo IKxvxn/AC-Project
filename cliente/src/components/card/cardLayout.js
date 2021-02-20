@@ -3,7 +3,7 @@ import { Row, Divider } from 'antd';
 import { withRouter } from 'react-router-dom'
 import CardContainer from './cardContainer'
 import * as ClientColors from '../../assets/clientColors'
-import * as ClientPets from '../../assets/clientPets'
+import * as ClientBanners from '../../assets/clientBanners'
 
 
 class cardLayout extends Component {
@@ -30,8 +30,8 @@ class cardLayout extends Component {
         <Row gutter={[8, 8]}>
           <CardContainer
             createMode={true}
-            selectedBanner={ClientPets.pets[0].key}
-            selectedColor={ClientColors.colors[5]}
+            selectedBanner={this.state.deck? ClientBanners.getBannerByKey(this.state.deck.bannerKey).banner.large:null}
+            selectedColor={this.state.deck? ClientColors.getColorByKey(this.state.deck.colorKey).name:null}
             onFinish={this.props.createDeck}
             isCreating={this.props.isCreating}
             cardName="Añadir Carta"
