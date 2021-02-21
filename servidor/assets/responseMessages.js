@@ -4,10 +4,12 @@ const loginError = "La cuenta no existe o la contraseña proporcionada es incorr
 const tokenError = "Acceso denegado, es necesario que inicie sesión"
 const tokenExpired = "La sesión ha expirado, por favor, vuelva a ingresar"
 const deleteDeckError = "El mazo no ha podido ser eliminado"
+const createCardError = "No se pudo crear la carta"
 
 const createAccountSuccess = "La cuenta se ha creado exitosamente"
 const deleteDeckSuccess = "El mazo ha sido eliminado"
 const createDeckSuccess = "Mazo creado con éxito"
+const createCardSuccess = "Carta creada con éxito"
 const updateDeckSucces = "Mazo modificado con éxito"
 const loginSuccess = "Bienvenido nuevamente, "
 
@@ -24,5 +26,5 @@ function getMongoMessageByErrorCode(code) {
 
 
 module.exports = {
-    getMongoMessageByErrorCode, unknownError, createAccountSuccess, dataError, loginError, loginSuccess, tokenError, createDeckSuccess, updateDeckSucces, deleteDeckError, deleteDeckSuccess, tokenExpired
+    getMongoMessageByErrorCode, createCardError, unknownError, createAccountSuccess, dataError, loginError, loginSuccess, tokenError, createDeckSuccess, updateDeckSucces, deleteDeckError, deleteDeckSuccess, tokenExpired, createCardSuccess
 }

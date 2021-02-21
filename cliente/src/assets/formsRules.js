@@ -22,15 +22,12 @@ export const newDeckName = [
 //Create card
 export const newCardName = [
     { required: true, message: '🦴 Por favor elija un nombre para la carta' },
-    { min: 1, message: '🦴 Número de caracteres mínimo: 1' }
 ]
 
 export const newDatoName = [
     { required: true, message: '🦴 Por favor elija un nombre para el dato' },
-    { min: 1, message: '🦴 Número de caracteres mínimo: 1' }
 ]
 
 export const newDescripcion = [
     { required: true, message: '🦴 Por favor elija una descripción para el dato' },
-    { min: 1, message: '🦴 Número de caracteres mínimo: 1' }
 ]

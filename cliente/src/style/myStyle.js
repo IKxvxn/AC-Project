@@ -36,7 +36,7 @@ export const HomeLayoutMenu = {
 }
 
 export const homeLogoutButton = {
-  float: 'right', 
+  float: 'right',
   margin: "0 1.5rem 0 0"
 }
 
@@ -98,15 +98,47 @@ export const logoText = {
   color: "#326c9f"
 }
 
-//Cards
+//Decks
 
 export const createDeckForm = {
   labelCol: { span: 4 },
   wrapperCol: { span: 20 },
 }
 
-export const createDeckBanner = { 
-  width:"100%", 
-  marginLeft:"auto", 
-  marginRight:"auto" 
+export const createDeckBanner = {
+  width: "100%",
+  marginLeft: "auto",
+  marginRight: "auto"
+}
+
+//Cards
+
+export const cardHeader = {
+  textAlign: "left",
+  color: "white",
+  textShadow: "black 0px 0px 3px",
+  fontWeight: "bold",
+  overflow: "hidden",
+  padding: "0"
+}
+
+export const cardHeaderText = {
+  paddingTop: "1rem",
+  paddingLeft: "1rem",
+  height: "3.5rem",
+  background: "rgba(0, 0, 0, 0.1)"
+}
+
+export const overFlowHidden = {
+  overflow : "hidden" 
+}
+
+export const cardHeaderTextContainer = {
+  height: "3.5rem", 
+  marginBottom: "-0.5rem", 
+  marginRight: "-4rem", 
+  marginTop: "-0.5rem", 
+  backgroundSize: "13rem auto", 
+  backgroundRepeat: "no-repeat", 
+  backgroundPosition: "right"
 }

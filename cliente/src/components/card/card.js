@@ -1,12 +1,21 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom'
-import { Col, Card, Popconfirm } from 'antd';
+import { Row, Col, Card, Popconfirm, Typography } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusCircleOutlined, EyeOutlined   } from '@ant-design/icons';
+import { Scrollbars } from 'react-custom-scrollbars';
+import * as Style from '../../style/myStyle'
 import * as CLIENT_ROUTES from '../../assets/clientRoutes'
 
 const { Meta } = Card;
 
 class deck extends Component {
+
+  constructor(props){
+    super(props)
+    this.state = {
+      cardDataSubset: props.cardData === undefined? [] : props.cardData
+    }
+  }
 
   render() {
 
@@ -22,22 +31,26 @@ class deck extends Component {
       <Col xs={24} sm={12} md={8} lg={6} xl={6}>
         <Card
           title={
-            <Fragment>
-              <div style={{backgroundImage:`url(${this.props.banner})`, height:"3.5rem" , marginBottom:"-0.5rem", marginRight:"-4rem" ,marginTop:"-0.5rem", backgroundSize:"13rem auto", backgroundRepeat:"no-repeat" , backgroundPosition:"right"}}>
-                <div style={{paddingTop:"1rem", paddingLeft:"1rem", height:"3.5rem", background: "rgba(0, 0, 0, 0.1)"}}>{this.props.cardName}</div>
+              <div style={{backgroundImage:`url(${this.props.banner})`, ...Style.cardHeaderTextContainer}}>
+                <div style={Style.cardHeaderText}>{this.props.cardName}</div>
               </div>
-            </Fragment>
           }
           size="small"
-          bodyStyle={{minHeight: "1rem"}}
-          headStyle={{background:this.props.background, "text-align": "left", color:"white", textShadow: "black 0px 0px 3px", fontWeight:"bold", overflow:"hidden", padding:"0"}}
+          bodyStyle={{background:this.props.background+"33", height:"13rem"}}
+          headStyle={{...Style.cardHeader, background:this.props.background}}
           onClick={this.props.onClick}
           actions={actions}
         >
-        <p>Irrigación: ifgoidfgoisdgfioghdsig</p>
-        <p>Inervación: ifgoidfgoisdgfioghdsig</p>
-        <p>Función: ifgoidfgoisdgfioghdsig</p>
-        <p>Irrigación: ifgoidfgoisdgfioghdsig</p>
+          <Scrollbars autoHide style={{height:"12rem"}}>
+            <Row align="top">
+              {this.state.cardDataSubset.map(dato => 
+                <Col span={24}>
+                  <Typography.Text style={{fontSize:"1rem", marginLeft:"-0.2rem"}} strong keyboard>{dato.fact}</Typography.Text>
+                  <Typography.Paragraph style={{textAlign:"justify", textJustify:"inter-word"}}>{dato.description}</Typography.Paragraph>
+                </Col>
+              )}
+            </Row>
+          </Scrollbars>
         </Card>
       </Col>
     );

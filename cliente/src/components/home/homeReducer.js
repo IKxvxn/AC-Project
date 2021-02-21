@@ -69,6 +69,23 @@ const homeReducer = (state = DEFAULT_STATE, action) => {
                 ...state,
                 decks: state.decks.filter( deck => deck._id !== action.deckId )
             }
+        case Acciones.CREATE_CARD_REQUEST:
+            return {
+                ...state,
+                isCreating: true
+            }
+        case Acciones.CREATE_CARD_FAILURE:
+            return {
+                ...state,
+                isCreating: false
+            }
+        case Acciones.CREATE_CARD_SUCCESS:
+            let updatedDeck = state.decks.find(deck=> deck._id===action.deckId)
+            updatedDeck.cards=[...updatedDeck.cards, action.card]
+            return {
+                ...state,
+                isCreating: false,
+            }
         default:
             return state
 

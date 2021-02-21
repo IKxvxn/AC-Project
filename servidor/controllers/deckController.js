@@ -27,6 +27,7 @@ function crearDeck(req, res) {
   else {
 
     deck._id = uuid.v4()
+    deck.cards = []
 
     let newDeck = new deckModel({
       _id: deck._id,
@@ -36,7 +37,7 @@ function crearDeck(req, res) {
       bannerKey: deck.bannerKey
     })
 
-    newDeck.save((error, resp) => {
+    newDeck.save((error) => {
       if (error) {
         ResponseBuilder.sendErrorResponse(res, ResponseMessages.getMongoMessageByErrorCode(error.code))
       }
@@ -63,7 +64,7 @@ function getDecks(req, res) {
     ResponseBuilder.sendErrorResponse(res, ResponseMessages.tokenExpired)
   }
   else {
-    deckModel.find({ owner: username }, { cards: 0 }).then((decksDB) => {
+    deckModel.find({ owner: username }).then((decksDB) => {
       ResponseBuilder.sendSuccessResponse(res, "", decksDB)
     }).catch(error => {
       ResponseBuilder.sendErrorResponse(res, ResponseMessages.getMongoMessageByErrorCode(error.code))
@@ -132,9 +133,44 @@ function deleteDeck(req, res) {
   }
 }
 
+function createCard(req, res) {
+
+  const deckId = req.body.deckId
+  const card = req.body.card
+  const usuario = req.body.user
+
+  if (usuario.username === undefined || deckId === undefined || card.name === undefined) {
+    ResponseBuilder.sendErrorResponse(res, ResponseMessages.dataError)
+  }
+
+  else if (usuario.token === undefined) {
+    ResponseBuilder.sendErrorResponse(res, ResponseMessages.tokenError)
+  }
+
+  else if (!AuthController.autentificarAccion(usuario.token)) {
+    ResponseBuilder.sendErrorResponse(res, ResponseMessages.tokenExpired)
+  }
+
+  else {
+
+    card._id = uuid.v4()
+
+    deckModel.updateOne({_id:deckId},{$push:{cards:card}}).then((result) => {
+      if(result.nModified===0){
+        ResponseBuilder.sendErrorResponse(res, ResponseMessages.createCardError)
+      }
+      else{
+        ResponseBuilder.sendSuccessResponse(res, ResponseMessages.createCardSuccess, card)
+      }
+    }).catch(error => {
+      ResponseBuilder.sendErrorResponse(res, ResponseMessages.getMongoMessageByErrorCode(error.code))
+    })
+  }
+}
+
 
 module.exports = {
-  crearDeck, getDecks, updateDeck, deleteDeck
+  crearDeck, getDecks, updateDeck, deleteDeck, createCard
 }
 
 

@@ -3,6 +3,7 @@ import { Route, Switch, withRouter, Link } from 'react-router-dom'
 import { Layout, Menu, Typography } from 'antd';
 import { BookOutlined, BulbOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux'
+import { Scrollbars } from 'react-custom-scrollbars';
 import RepasosLayout from '../repasos/repasosLayout'
 import HomeBreadCrumb from './homeBreadCrumb'
 import DecksLayout from '../deck/decksLayout'
@@ -65,8 +66,8 @@ class homeLayout extends Component {
               </Link>
             </Menu.Item>
             <Menu.Item key="3" icon={<BookOutlined />}>
-                <Link to={CLIENT_ROUTES.decksRoute}>
-                  Mazos
+              <Link to={CLIENT_ROUTES.decksRoute}>
+                Mazos
                 </Link>
             </Menu.Item>
             <Menu.Item key="4" icon={<BulbOutlined />}>
@@ -84,23 +85,24 @@ class homeLayout extends Component {
         <Layout>
 
           <Header style={Style.homeLayoutHeader} />
-          <Content style={Style.homeLayoutMainContent}>
+          <Scrollbars autoHide style={{ height: "90vh" }}>
+            <Content style={Style.homeLayoutMainContent}>
 
-            <HomeBreadCrumb pathName={""} />
+              <HomeBreadCrumb pathName={""} />
 
-            <Content style={Style.homeLayoutSecondaryContent}>
-              <Switch>
-                <Route exact path={CLIENT_ROUTES.homeRoute} render={() => <RepasosLayout sections={[]} />} />
-                <Route exact path={CLIENT_ROUTES.accountRoute} render={() => <RepasosLayout sections={[]} />} />
-                <Route exact path={CLIENT_ROUTES.decksRoute} render={() => <DecksLayout decks={this.props.decks} isLoading={this.props.isLoading} isCreating={this.props.isCreating} createDeck={this.props.createDeck} updateDeck={this.props.updateDeck} deleteDeck={this.props.deleteDeck} />} />
-                <Route exact path={CLIENT_ROUTES.cardsRoute} render={() => <CardLayout decks={this.props.decks}  />} />
-                <Route exact path={CLIENT_ROUTES.quizzesRoute} render={() => <RepasosLayout sections={[]} />} />
-              </Switch>
+              <Content style={Style.homeLayoutSecondaryContent}>
+                <Switch>
+                  <Route exact path={CLIENT_ROUTES.homeRoute} render={() => <RepasosLayout sections={[]} />} />
+                  <Route exact path={CLIENT_ROUTES.accountRoute} render={() => <RepasosLayout sections={[]} />} />
+                  <Route exact path={CLIENT_ROUTES.decksRoute} render={() => <DecksLayout decks={this.props.decks} isLoading={this.props.isLoading} isCreating={this.props.isCreating} createDeck={this.props.createDeck} updateDeck={this.props.updateDeck} deleteDeck={this.props.deleteDeck} />} />
+                  <Route exact path={CLIENT_ROUTES.cardsRoute} render={() => <CardLayout decks={this.props.decks} isLoading={this.props.isLoading} isCreating={this.props.isCreating} createCard={this.props.createCard} />} />
+                  <Route exact path={CLIENT_ROUTES.quizzesRoute} render={() => <RepasosLayout sections={[]} />} />
+                </Switch>
+              </Content>
             </Content>
 
-          </Content>
-
-          <Footer style={Style.homeLayoutFooter}>Creado por Kevin A.</Footer>
+            <Footer style={Style.homeLayoutFooter}>Creado por Kevin A.</Footer>
+          </Scrollbars>
 
         </Layout>
       </Layout>
@@ -109,7 +111,7 @@ class homeLayout extends Component {
   }
 
   componentDidMount() {
-    if(!this.props.isSettingUpAccount){
+    if (!this.props.isSettingUpAccount) {
       this.props.loadSessionState(this.props.history)
       this.props.getMazos()
     }
@@ -134,7 +136,8 @@ function mapDispatchToProps(dispatch) {
     createDeck: (deck, onSucces) => dispatch(HomeActions.crearMazo(deck, onSucces)),
     updateDeck: (deck, onSucces) => dispatch(HomeActions.updateMazo(deck, onSucces)),
     getMazos: () => dispatch(HomeActions.getMazos()),
-    deleteDeck: (deckId) => dispatch(HomeActions.deleteMazo(deckId))
+    deleteDeck: (deckId) => dispatch(HomeActions.deleteMazo(deckId)),
+    createCard: (deckId, card, onSucces) => dispatch(HomeActions.createCard(deckId, card, onSucces))
   }
 }
 

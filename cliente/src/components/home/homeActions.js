@@ -20,6 +20,10 @@ export const DELETE_DECK_REQUEST = 'DELETE_DECK_REQUEST'
 export const DELETE_DECK_SUCCESS = 'DELETE_DECK_SUCCESS'
 export const DELETE_DECK_FAILURE = 'DELETE_DECK_FAILURE'
 
+export const CREATE_CARD_REQUEST = 'CREATE_CARD_REQUEST'
+export const CREATE_CARD_SUCCESS = 'CREATE_CARD_SUCCESS'
+export const CREATE_CARD_FAILURE = 'CREATE_CARD_FAILURE'
+
 export function crearMazo(deck, onSucces) {
 
     let requestBody = {
@@ -181,3 +185,50 @@ export function deleteMazo(deckId) {
             })
     }
 }
+
+export function createCard(deckId, card, onSucces) {
+
+    let requestBody = {
+        deckId: deckId,
+        card: card,
+        user: LocalStorage.loadState().user
+    }
+
+    return function (dispatch) {
+        dispatch({
+            type: CREATE_CARD_REQUEST
+        })
+        fetch(API_ROUTES.HOME + "/card", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody),
+        })
+            .then(response => response.json())
+            .then(datos => {
+                if (datos.error) {
+                    message.error(datos.message)
+
+                    dispatch({
+                        type: CREATE_CARD_FAILURE
+                    })
+                }
+                else {
+                    message.success(datos.message)
+                    onSucces()
+                    dispatch({
+                        type: CREATE_CARD_SUCCESS,
+                        deckId: deckId,
+                        card: datos.data
+                    })
+                }
+            })
+            .catch(error => {
+                message.error(Messages.serverConecctionError)
+                dispatch({
+                    type: CREATE_CARD_FAILURE,
+                })
+            })
+    }
+}
+
+

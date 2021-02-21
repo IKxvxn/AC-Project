@@ -24,18 +24,20 @@ class cardContainer extends Component {
     }
 
     onFinish = (datos) => {
+        console.log(datos)
         this.props.onFinish(
-            { ...datos, colorKey: this.state.selectedColor.key, bannerKey: ClientBanners.banners[this.state.selectedBanner].key, _id: this.props._id },
-            () => { this.toggleHandler(false) }
+            this.props.deckId, datos, () => { this.toggleHandler(false) }
         )
     };
 
     render() {
+        console.log(this.props.cardName, this.props.cardData)
         return (
             <Fragment>
                 <Card
                     deckId={this.props._id}
                     cardName={this.props.cardName}
+                    cardData={this.props.cardData}
                     banner={this.props.selectedBanner}
                     onOpen={() => this.toggleHandler(true)}
                     onDelete={() => { this.props.onDelete(this.props._id) }}
@@ -56,7 +58,7 @@ class cardContainer extends Component {
                             <Input />
                         </Form.Item>
 
-                        <Form.List name="detalles">
+                        <Form.List name="details">
                             {(fields, { add, remove }) => (
                                 <Fragment>
                                     {fields.map(field => (
@@ -64,7 +66,7 @@ class cardContainer extends Component {
                                             <Divider />
                                             <Row justify="start" gutter={[8, 8]}>
                                                 <Col xs={20} sm={22} md={22} lg={22} xl={22}>
-                                                    <Form.Item {...field} name={[field.name, 'dato']} fieldKey={[field.fieldKey, 'dato']} rules={Rules.newDatoName}>
+                                                    <Form.Item {...field} name={[field.name, 'fact']} fieldKey={[field.fieldKey, 'fact']} rules={Rules.newDatoName}>
                                                         <Input placeholder="Dato" />
                                                     </Form.Item>
                                                 </Col>
@@ -74,7 +76,7 @@ class cardContainer extends Component {
                                                 </Col>
 
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                                                    <Form.Item {...field} name={[field.name, 'descripcion']} fieldKey={[field.fieldKey, 'descripcion']} rules={Rules.newDescripcion}>
+                                                    <Form.Item {...field} name={[field.name, 'description']} fieldKey={[field.fieldKey, 'description']} rules={Rules.newDescripcion}>
                                                         <Input.TextArea rows={2}  placeholder="Descripción" />
                                                     </Form.Item>
                                                 </Col>
