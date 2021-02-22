@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Row, Skeleton, Input, Divider } from 'antd';
+import { Row, Input, Divider } from 'antd';
 import DeckContainer from './deckContainer'
 import LoadingScreen from '../otherComponents/loadingScreen'
 import * as ClientColors from '../../assets/clientColors'
@@ -13,15 +13,20 @@ class deckLayout extends Component {
     this.state = {
       filteredData: this.props.decks,
       filter: "",
-      didUpdate: false
     }
   }
 
   onSearchAux = (filter) => {
-    this.setState({filteredData: this.props.decks.filter(deck => deck.name.toLowerCase().includes(filter)), filter:filter})
+    if(filter!==""){
+      this.setState({filteredData: this.props.decks.filter(deck => deck.name.toLowerCase().includes(filter))})
+    }
+    else{
+      this.setState({filteredData: this.props.decks})
+    }
   }
 
   onSearch = (event) => {
+    this.setState({filter: event.target.value.toLowerCase()})
     this.onSearchAux( event.target.value.toLowerCase())
   }
 
@@ -66,14 +71,13 @@ class deckLayout extends Component {
       </Fragment>
     );
   }
-  componentWillReceiveProps(props) {
-    this.setState({ filteredData: props.decks, didUpdate:false })
-  }
 
-  componentDidUpdate() {
-    if(this.state.filter!==""&!this.state.didUpdate){
+  componentDidUpdate(oldProps) {
+    if (oldProps.isLoading===true && this.props.isLoading===false) {
+      this.setState({ filteredData: this.props.decks })
+    }
+    if(oldProps.isCreating===true && this.props.isCreating===false){
       this.onSearchAux(this.state.filter) 
-      this.setState({didUpdate:true})
     }
   }
 }

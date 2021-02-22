@@ -24,23 +24,22 @@ class cardContainer extends Component {
     }
 
     onFinish = (datos) => {
-        console.log(datos)
+        datos._id=this.props.cardId
         this.props.onFinish(
             this.props.deckId, datos, () => { this.toggleHandler(false) }
         )
     };
 
     render() {
-        console.log(this.props.cardName, this.props.cardData)
         return (
             <Fragment>
                 <Card
                     deckId={this.props._id}
                     cardName={this.props.cardName}
-                    cardData={this.props.cardData}
+                    cardData={this.props.cardData===undefined?[]:this.props.cardData}
                     banner={this.props.selectedBanner}
                     onOpen={() => this.toggleHandler(true)}
-                    onDelete={() => { this.props.onDelete(this.props._id) }}
+                    onDelete={() => { this.props.onDelete(this.props.deckId, this.props.cardId) }}
                     background={this.props.selectedColor}
                     createMode={this.props.createMode}
                 />
@@ -52,9 +51,9 @@ class cardContainer extends Component {
                     onCancel={() => this.toggleHandler(false)}
                     footer={null}
                 >
-                    <Form onFinish={this.onFinish} preserve={false}>
+                    <Form onFinish={this.onFinish} preserve={false} initialValues={this.props.createMode?null:{details:this.props.cardData}}>
 
-                        <Form.Item {...Style.createDeckForm} name="name" label="Nombre" rules={Rules.newCardName} initialValue={this.props.createMode?null:this.props.deckName}>
+                        <Form.Item {...Style.createDeckForm} name="name" label="Nombre" rules={Rules.newCardName} initialValue={this.props.createMode?null:this.props.cardName}>
                             <Input />
                         </Form.Item>
 

@@ -8,5 +8,7 @@ router.put('/deck', function(req, res){deckController.updateDeck(req, res)})
 router.delete('/deck/:username/:token/:deckId', function(req, res){deckController.deleteDeck(req, res)})
 
 router.post('/card', function(req, res){deckController.createCard(req, res)})
+router.put('/card', function(req, res){deckController.updateCard(req, res)})
+router.delete('/card/:username/:token/:deckId/:cardId', function(req, res){deckController.deleteCard(req, res)})
 
 module.exports = router

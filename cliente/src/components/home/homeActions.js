@@ -24,6 +24,14 @@ export const CREATE_CARD_REQUEST = 'CREATE_CARD_REQUEST'
 export const CREATE_CARD_SUCCESS = 'CREATE_CARD_SUCCESS'
 export const CREATE_CARD_FAILURE = 'CREATE_CARD_FAILURE'
 
+export const UPDATE_CARD_REQUEST = 'UPDATE_CARD_REQUEST'
+export const UPDATE_CARD_SUCCESS = 'UPDATE_CARD_SUCCESS'
+export const UPDATE_CARD_FAILURE = 'UPDATE_CARD_FAILURE'
+
+export const DELETE_CARD_REQUEST = 'DELETE_CARD_REQUEST'
+export const DELETE_CARD_SUCCESS = 'DELETE_CARD_SUCCESS'
+export const DELETE_CARD_FAILURE = 'DELETE_CARD_FAILURE'
+
 export function crearMazo(deck, onSucces) {
 
     let requestBody = {
@@ -226,6 +234,89 @@ export function createCard(deckId, card, onSucces) {
                 message.error(Messages.serverConecctionError)
                 dispatch({
                     type: CREATE_CARD_FAILURE,
+                })
+            })
+    }
+}
+
+export function updateCard(deckId, card, onSucces) {
+
+    let requestBody = {
+        deckId: deckId,
+        card: card,
+        user: LocalStorage.loadState().user
+    }
+
+    return function (dispatch) {
+        dispatch({
+            type: CREATE_DECK_REQUEST
+        })
+        fetch(API_ROUTES.HOME + "/card", {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody),
+        })
+            .then(response => response.json())
+            .then(datos => {
+                if (datos.error) {
+                    message.error(datos.message)
+
+                    dispatch({
+                        type: UPDATE_CARD_FAILURE
+                    })
+                }
+                else {
+                    message.success(datos.message)
+                    onSucces()
+                    dispatch({
+                        type: UPDATE_CARD_SUCCESS,
+                        deckId: deckId,
+                        card: datos.data
+                    })
+                }
+            })
+            .catch(error => {
+                message.error(Messages.serverConecctionError)
+                dispatch({
+                    type: UPDATE_CARD_FAILURE,
+                })
+            })
+    }
+}
+
+export function deleteCard(deckId, cardId) {
+    let user = LocalStorage.loadState().user
+
+    return function (dispatch) {
+        dispatch({
+            type: DELETE_CARD_REQUEST
+        })
+        fetch(API_ROUTES.HOME + "/card/" + user.username + "/" + user.token + "/" + deckId + "/" + cardId, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+        })
+            .then(response => response.json())
+            .then(datos => {
+                if (datos.error) {
+                    message.error(datos.message)
+
+                    dispatch({
+                        type: DELETE_CARD_FAILURE
+                    })
+                }
+                else {
+                    dispatch({
+                        deckId: deckId,
+                        cardId: cardId,
+                        type: DELETE_CARD_SUCCESS
+                    })
+                    
+                }
+            })
+            .catch(error => {
+                message.error(Messages.serverConecctionError)
+                dispatch({
+                    type: DELETE_CARD_FAILURE,
                 })
             })
     }

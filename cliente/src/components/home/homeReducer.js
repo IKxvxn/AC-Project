@@ -7,6 +7,8 @@ const DEFAULT_STATE = {
 }
 
 const homeReducer = (state = DEFAULT_STATE, action) => {
+    let updateData
+
     switch (action.type) {
         case Acciones.CREATE_DECK_REQUEST:
             return {
@@ -58,15 +60,18 @@ const homeReducer = (state = DEFAULT_STATE, action) => {
             }
         case Acciones.DELETE_DECK_REQUEST:
             return {
-                ...state
+                ...state,
+                isCreating: true
             }
         case Acciones.DELETE_DECK_FAILURE:
             return {
-                ...state
+                ...state,
+                isCreating: false
             }
         case Acciones.DELETE_DECK_SUCCESS:
             return {
                 ...state,
+                isCreating: false,
                 decks: state.decks.filter( deck => deck._id !== action.deckId )
             }
         case Acciones.CREATE_CARD_REQUEST:
@@ -80,8 +85,43 @@ const homeReducer = (state = DEFAULT_STATE, action) => {
                 isCreating: false
             }
         case Acciones.CREATE_CARD_SUCCESS:
-            let updatedDeck = state.decks.find(deck=> deck._id===action.deckId)
-            updatedDeck.cards=[...updatedDeck.cards, action.card]
+            updateData = state.decks.find(deck=> deck._id===action.deckId)
+            updateData.cards=[...updateData.cards, action.card]
+            return {
+                ...state,
+                isCreating: false,
+            }
+        case Acciones.UPDATE_CARD_REQUEST:
+            return {
+                ...state,
+                isCreating: true
+            }
+        case Acciones.UPDATE_CARD_FAILURE:
+            return {
+                ...state,
+                isCreating: false
+            }
+        case Acciones.UPDATE_CARD_SUCCESS:
+            updateData = state.decks.find(deck=> deck._id===action.deckId)
+            console.log(action.card)
+            updateData.cards=updateData.cards.map(card => card._id===action.card._id?action.card:card)
+            return {
+                ...state,
+                isCreating: false,
+            }
+        case Acciones.DELETE_CARD_REQUEST:
+            return {
+                ...state,
+                isCreating: true
+            }
+        case Acciones.DELETE_CARD_FAILURE:
+            return {
+                ...state,
+                isCreating: false
+            }
+        case Acciones.DELETE_CARD_SUCCESS:
+            updateData = state.decks.find(deck=> deck._id===action.deckId)
+            updateData.cards=updateData.cards.filter(card => card._id!==action.cardId)
             return {
                 ...state,
                 isCreating: false,

@@ -155,7 +155,7 @@ function createCard(req, res) {
 
     card._id = uuid.v4()
 
-    deckModel.updateOne({_id:deckId},{$push:{cards:card}}).then((result) => {
+    deckModel.updateOne({_id:deckId, owner:usuario.username},{$push:{cards:card}}).then((result) => {
       if(result.nModified===0){
         ResponseBuilder.sendErrorResponse(res, ResponseMessages.createCardError)
       }
@@ -168,9 +168,74 @@ function createCard(req, res) {
   }
 }
 
+function updateCard(req, res) {
+
+  const deckId = req.body.deckId
+  const card = req.body.card
+  const usuario = req.body.user
+
+  if (usuario.username === undefined || deckId === undefined || card.name === undefined) {
+    ResponseBuilder.sendErrorResponse(res, ResponseMessages.dataError)
+  }
+
+  else if (usuario.token === undefined) {
+    ResponseBuilder.sendErrorResponse(res, ResponseMessages.tokenError)
+  }
+
+  else if (!AuthController.autentificarAccion(usuario.token)) {
+    ResponseBuilder.sendErrorResponse(res, ResponseMessages.tokenExpired)
+  }
+
+  else {
+    deckModel.updateOne({_id:deckId, owner:usuario.username, "cards._id":card._id},{$set:{"cards.$":card}}).then((result) => {
+      if(result.nModified===0){
+        ResponseBuilder.sendErrorResponse(res, ResponseMessages.updateCardError)
+      }
+      else{
+        ResponseBuilder.sendSuccessResponse(res, ResponseMessages.updateCardSuccess, card)
+      }
+    }).catch(error => {
+      ResponseBuilder.sendErrorResponse(res, ResponseMessages.getMongoMessageByErrorCode(error.code))
+    })
+  }
+}
+
+function deleteCard(req, res) {
+
+  const username = req.params.username
+  const token = req.params.token
+  const deckId = req.params.deckId
+  const cardId = req.params.cardId
+
+  if (username === undefined || deckId === undefined || cardId === undefined) {
+    ResponseBuilder.sendErrorResponse(res, ResponseMessages.dataError)
+  }
+
+  else if (token === undefined) {
+    ResponseBuilder.sendErrorResponse(res, ResponseMessages.tokenError)
+  }
+
+  else if (!AuthController.autentificarAccion(token)) {
+    ResponseBuilder.sendErrorResponse(res, ResponseMessages.tokenExpired)
+  }
+  else {
+    deckModel.updateOne({ _id: deckId, owner: username}, {$pull:{cards:{_id:cardId}}}).then((result) => {
+      if(result.deletedCount===0){
+        ResponseBuilder.sendErrorResponse(res, ResponseMessages.deleteCardError)
+      }
+      else{
+        ResponseBuilder.sendSuccessResponse(res, ResponseMessages.deleteCardSuccess)
+      }
+    }).catch(error => {
+      console.log(error)
+      ResponseBuilder.sendErrorResponse(res, ResponseMessages.getMongoMessageByErrorCode(error.code))
+    })
+  }
+}
+
 
 module.exports = {
-  crearDeck, getDecks, updateDeck, deleteDeck, createCard
+  crearDeck, getDecks, updateDeck, deleteDeck, createCard, updateCard, deleteCard
 }
 
 

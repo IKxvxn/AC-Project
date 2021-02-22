@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Route, Switch, withRouter, Link } from 'react-router-dom'
 import { Layout, Menu, Typography } from 'antd';
 import { BookOutlined, BulbOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux'
 import { Scrollbars } from 'react-custom-scrollbars';
-import RepasosLayout from '../repasos/repasosLayout'
 import HomeBreadCrumb from './homeBreadCrumb'
 import DecksLayout from '../deck/decksLayout'
 import CardLayout from '../card/cardLayout'
+import QuizzLayout from '../quizz/quizzLayout'
 import * as LoginActions from '../login/loginActions'
 import * as HomeActions from './homeActions'
 import * as Style from '../../style/myStyle'
@@ -92,11 +92,11 @@ class homeLayout extends Component {
 
               <Content style={Style.homeLayoutSecondaryContent}>
                 <Switch>
-                  <Route exact path={CLIENT_ROUTES.homeRoute} render={() => <RepasosLayout sections={[]} />} />
-                  <Route exact path={CLIENT_ROUTES.accountRoute} render={() => <RepasosLayout sections={[]} />} />
+                  <Route exact path={CLIENT_ROUTES.homeRoute} render={() => <Fragment />} />
+                  <Route exact path={CLIENT_ROUTES.accountRoute} render={() => <Fragment />} />
                   <Route exact path={CLIENT_ROUTES.decksRoute} render={() => <DecksLayout decks={this.props.decks} isLoading={this.props.isLoading} isCreating={this.props.isCreating} createDeck={this.props.createDeck} updateDeck={this.props.updateDeck} deleteDeck={this.props.deleteDeck} />} />
-                  <Route exact path={CLIENT_ROUTES.cardsRoute} render={() => <CardLayout decks={this.props.decks} isLoading={this.props.isLoading} isCreating={this.props.isCreating} createCard={this.props.createCard} />} />
-                  <Route exact path={CLIENT_ROUTES.quizzesRoute} render={() => <RepasosLayout sections={[]} />} />
+                  <Route exact path={CLIENT_ROUTES.cardsRoute} render={() => <CardLayout decks={this.props.decks} isLoading={this.props.isLoading} isCreating={this.props.isCreating} createCard={this.props.createCard} updateCard={this.props.updateCard} deleteCard={this.props.deleteCard} />} />
+                  <Route exact path={CLIENT_ROUTES.quizzesRoute} render={() => <QuizzLayout />} />
                 </Switch>
               </Content>
             </Content>
@@ -137,7 +137,9 @@ function mapDispatchToProps(dispatch) {
     updateDeck: (deck, onSucces) => dispatch(HomeActions.updateMazo(deck, onSucces)),
     getMazos: () => dispatch(HomeActions.getMazos()),
     deleteDeck: (deckId) => dispatch(HomeActions.deleteMazo(deckId)),
-    createCard: (deckId, card, onSucces) => dispatch(HomeActions.createCard(deckId, card, onSucces))
+    createCard: (deckId, card, onSucces) => dispatch(HomeActions.createCard(deckId, card, onSucces)),
+    updateCard: (deckId, card, onSucces) => dispatch(HomeActions.updateCard(deckId, card, onSucces)),
+    deleteCard: (deckId, cardId) => dispatch(HomeActions.deleteCard(deckId, cardId))
   }
 }
 
