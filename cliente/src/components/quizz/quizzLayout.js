@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Steps, Button, message, Divider } from 'antd';
+import QuizzConfigurations from './quizzConfigurations'
 import * as Style from '../../style/myStyle'
 
 const { Step } = Steps;
@@ -7,26 +8,18 @@ const { Step } = Steps;
 
 class quizzLayout extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
 
-    this.state = {current:0}
+    this.state = {
+      current: 0,
+      switchState: false,
+      decks: [],
+      selectedDecks: [],
+      numPreguntas: 1,
+      numSegundos: 15
+    }
   }
-
-  steps = [
-    {
-      key: 0,
-      content: 'First-content',
-    },
-    {
-      key: 1,
-      content: 'Second-content',
-    },
-    {
-      key: 2,
-      content: 'Last-content',
-    },
-  ];
 
   next = () => {
     this.setState({ current: this.state.current + 1 })
@@ -36,20 +29,51 @@ class quizzLayout extends Component {
     this.setState({ current: this.state.current - 1 })
   };
 
+  onSelectedDecksChange = (selectedDecks) => { this.setState({ selectedDecks: selectedDecks }) }
+  onSwitchTimerChange = (switchState) => { this.setState({ switchState: switchState }) }
+  onNumPreguntasChange = (numPreguntas) => { this.setState({ numPreguntas: numPreguntas }) }
+  onNumSegundosChange = (numSegundos) => { this.setState({ numSegundos: numSegundos }) }
+
   render() {
+
+    this.steps = [
+      {
+        key: 0,
+        content: <QuizzConfigurations
+          selectedDecksState={this.state.selectedDecks}
+          numPreguntasState={this.state.numPreguntas}
+          switchState={this.state.switchState}
+          numSegundosState={this.state.numSegundos}
+          decks={this.props.decks}
+          onSelectedDecksChange={this.onSelectedDecksChange}
+          onNumPreguntasChange={this.onNumPreguntasChange}
+          onSwitchTimerChange={this.onSwitchTimerChange}
+          onNumSegundosChange={this.onNumSegundosChange}
+        />
+      },
+      {
+        key: 1,
+        content: 'Second-content',
+      },
+      {
+        key: 2,
+        content: 'Last-content',
+      },
+    ];
+
     return (
       <Fragment>
         <Divider style={Style.overFlowHidden}>Generador Rápido de Quizz</Divider>
-       
+
         <Steps current={this.state.current}>
           {this.steps.map(item => (
             <Step key={item.key} />
           ))}
         </Steps>
 
-        <div style={{"min-height": "50vh", "margin-top": "16px", "padding-top": "80px", "text-align": "center", "background-color": "#fafafa", "border": "1px dashed #e9e9e9", "border-radius": "2px"}}>{this.steps[this.state.current].content}</div>
-        
-        <div style={{"margin-top": "24px"}}>
+        <div style={{ "min-height": "45vh", "margin-top": "2rem" }}>{this.steps[this.state.current].content}</div>
+
+        <div style={{ "margin-top": "24px" }}>
           {this.state.current < this.steps.length - 1 && (
             <Button type="primary" onClick={() => this.next()}>
               Next

@@ -96,7 +96,7 @@ class homeLayout extends Component {
                   <Route exact path={CLIENT_ROUTES.accountRoute} render={() => <Fragment />} />
                   <Route exact path={CLIENT_ROUTES.decksRoute} render={() => <DecksLayout decks={this.props.decks} isLoading={this.props.isLoading} isCreating={this.props.isCreating} createDeck={this.props.createDeck} updateDeck={this.props.updateDeck} deleteDeck={this.props.deleteDeck} />} />
                   <Route exact path={CLIENT_ROUTES.cardsRoute} render={() => <CardLayout decks={this.props.decks} isLoading={this.props.isLoading} isCreating={this.props.isCreating} createCard={this.props.createCard} updateCard={this.props.updateCard} deleteCard={this.props.deleteCard} />} />
-                  <Route exact path={CLIENT_ROUTES.quizzesRoute} render={() => <QuizzLayout />} />
+                  <Route exact path={CLIENT_ROUTES.quizzesRoute} render={() => <QuizzLayout decks={this.props.decks} />} />
                 </Switch>
               </Content>
             </Content>

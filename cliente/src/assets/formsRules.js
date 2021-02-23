@@ -31,3 +31,8 @@ export const newDatoName = [
 export const newDescripcion = [
     { required: true, message: '🦴 Por favor elija una descripción para el dato' },
 ]
+
+//Create quizz
+export const pickDecks = [
+    { required: true, message: '🦴 Por favor elija al menos un mazo o una carta' },
+]
