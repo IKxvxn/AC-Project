@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const authRoute = require('./routes/authRoute')
 const homeRoute = require('./routes/homeRoute')
+const quizzRoute = require('./routes/quizzRoute')
 
 const app = express()
 
@@ -21,6 +22,7 @@ app.use(express.json());
 
 app.use('/home', homeRoute)
 app.use('/auth', authRoute)
+app.use('/quizz', quizzRoute)
 
 app.get('/', (req, res) => {
   res.send('server root :)')

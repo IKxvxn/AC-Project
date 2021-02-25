@@ -7,7 +7,9 @@ const deleteDeckError = "El mazo no ha podido ser eliminado"
 const createCardError = "No se pudo crear la carta"
 const updateCardError = "No se pudo modificar la carta"
 const deleteCardError = "La carta no ha podido ser eliminada"
+const noCardsProvided = "No se ha podido generar el quiz porque no se han suministrado cartas. Verifica que los mazos utilizados no están vacíos"
 
+const quizzCreatedSuccessfully = "Quiz listo, ¿preparado?"
 const createAccountSuccess = "La cuenta se ha creado exitosamente"
 const deleteDeckSuccess = "El mazo ha sido eliminado"
 const deleteCardSuccess = "La carta ha sido eliminado"
@@ -30,5 +32,5 @@ function getMongoMessageByErrorCode(code) {
 
 
 module.exports = {
-    getMongoMessageByErrorCode, updateCardError, updateCardSuccess, deleteCardError, deleteCardSuccess, createCardError, unknownError, createAccountSuccess, dataError, loginError, loginSuccess, tokenError, createDeckSuccess, updateDeckSucces, deleteDeckError, deleteDeckSuccess, tokenExpired, createCardSuccess
+    getMongoMessageByErrorCode, quizzCreatedSuccessfully, noCardsProvided, updateCardError, updateCardSuccess, deleteCardError, deleteCardSuccess, createCardError, unknownError, createAccountSuccess, dataError, loginError, loginSuccess, tokenError, createDeckSuccess, updateDeckSucces, deleteDeckError, deleteDeckSuccess, tokenExpired, createCardSuccess
 }

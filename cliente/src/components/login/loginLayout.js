@@ -33,7 +33,7 @@ class loginLayout extends Component {
 
     return (
       <Row type="flex" justify="center" align="middle" style={Style.loginMainRow}>
-        <Col xs={24} sm={24} md={12} lg={8} xl={6}>
+        <Col xs={23} sm={23} md={12} lg={8} xl={6}>
           <Card>
             {this.state.loginMode ?
               <LoginForm login={this.props.login} history={this.props.history} changeMode={this.createAccountMode} isLoading={this.props.isLoading} /> :

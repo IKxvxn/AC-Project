@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { Steps, Button, message, Divider } from 'antd';
 import QuizzConfigurations from './quizzConfigurations'
+import LoadingScreen from '../otherComponents/loadingScreen'
+import QuizzDisplayer from "./quizzDisplayer"
 import * as Style from '../../style/myStyle'
 
 const { Step } = Steps;
@@ -23,6 +25,7 @@ class quizzLayout extends Component {
 
   next = () => {
     this.setState({ current: this.state.current + 1 })
+    console.log(this.state.current)
   };
 
   prev = () => {
@@ -33,6 +36,16 @@ class quizzLayout extends Component {
   onSwitchTimerChange = (switchState) => { this.setState({ switchState: switchState }) }
   onNumPreguntasChange = (numPreguntas) => { this.setState({ numPreguntas: numPreguntas }) }
   onNumSegundosChange = (numSegundos) => { this.setState({ numSegundos: numSegundos }) }
+
+  onCreateQuizz = () => {
+    this.next()
+    this.props.createQuizz(
+      this.state.selectedDecks, 
+      this.state.numPreguntas,
+      this.next,
+      this.prev,
+    )
+  }
 
   render() {
 
@@ -53,17 +66,19 @@ class quizzLayout extends Component {
       },
       {
         key: 1,
-        content: 'Second-content',
+        content: <LoadingScreen marginTop="20vh" />,
       },
       {
         key: 2,
-        content: 'Last-content',
+        content: <QuizzDisplayer quiz={this.props.quiz} numSegundos={this.state.numSegundos}/>,
       },
     ];
 
+    console.log(this.props.quiz)
+
     return (
       <Fragment>
-        <Divider style={Style.overFlowHidden}>Generador Rápido de Quizz</Divider>
+        <Divider style={Style.overFlowHidden}>Generador Rápido de Quiz</Divider>
 
         <Steps current={this.state.current}>
           {this.steps.map(item => (
@@ -74,19 +89,14 @@ class quizzLayout extends Component {
         <div style={{ "min-height": "45vh", "margin-top": "2rem" }}>{this.steps[this.state.current].content}</div>
 
         <div style={{ "margin-top": "24px" }}>
-          {this.state.current < this.steps.length - 1 && (
-            <Button type="primary" onClick={() => this.next()}>
-              Next
+          {this.state.current === 0 && (
+            <Button type="primary" disabled={this.props.isCreatingQuizz} onClick={this.onCreateQuizz}>
+              Crear
             </Button>
           )}
           {this.state.current === this.steps.length - 1 && (
             <Button type="primary" onClick={() => message.success('Processing complete!')}>
               Done
-            </Button>
-          )}
-          {this.state.current > 0 && (
-            <Button style={{ margin: '0 8px' }} onClick={() => this.prev()}>
-              Previous
             </Button>
           )}
         </div>

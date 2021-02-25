@@ -10,6 +10,7 @@ import CardLayout from '../card/cardLayout'
 import QuizzLayout from '../quizz/quizzLayout'
 import * as LoginActions from '../login/loginActions'
 import * as HomeActions from './homeActions'
+import * as QuizzActions from '../quizz/quizzActions'
 import * as Style from '../../style/myStyle'
 import * as CLIENT_ROUTES from '../../assets/clientRoutes'
 
@@ -96,7 +97,7 @@ class homeLayout extends Component {
                   <Route exact path={CLIENT_ROUTES.accountRoute} render={() => <Fragment />} />
                   <Route exact path={CLIENT_ROUTES.decksRoute} render={() => <DecksLayout decks={this.props.decks} isLoading={this.props.isLoading} isCreating={this.props.isCreating} createDeck={this.props.createDeck} updateDeck={this.props.updateDeck} deleteDeck={this.props.deleteDeck} />} />
                   <Route exact path={CLIENT_ROUTES.cardsRoute} render={() => <CardLayout decks={this.props.decks} isLoading={this.props.isLoading} isCreating={this.props.isCreating} createCard={this.props.createCard} updateCard={this.props.updateCard} deleteCard={this.props.deleteCard} />} />
-                  <Route exact path={CLIENT_ROUTES.quizzesRoute} render={() => <QuizzLayout decks={this.props.decks} />} />
+                  <Route exact path={CLIENT_ROUTES.quizzesRoute} render={() => <QuizzLayout createQuizz={this.props.createQuizz} decks={this.props.decks} isCreatingQuizz={this.props.isCreatingQuizz} quiz={this.props.quiz} />} />
                 </Switch>
               </Content>
             </Content>
@@ -125,7 +126,9 @@ function mapStateToProps(state) {
     decks: state.homeReducer.decks,
     isCreating: state.homeReducer.isCreating,
     isLoading: state.homeReducer.isLoading,
-    isSettingUpAccount: state.loginReducer.isLoading
+    isSettingUpAccount: state.loginReducer.isLoading,
+    isCreatingQuizz: state.quizzReducer.isCreating,
+    quiz: state.quizzReducer.quiz
   }
 }
 
@@ -139,7 +142,8 @@ function mapDispatchToProps(dispatch) {
     deleteDeck: (deckId) => dispatch(HomeActions.deleteMazo(deckId)),
     createCard: (deckId, card, onSucces) => dispatch(HomeActions.createCard(deckId, card, onSucces)),
     updateCard: (deckId, card, onSucces) => dispatch(HomeActions.updateCard(deckId, card, onSucces)),
-    deleteCard: (deckId, cardId) => dispatch(HomeActions.deleteCard(deckId, cardId))
+    deleteCard: (deckId, cardId) => dispatch(HomeActions.deleteCard(deckId, cardId)),
+    createQuizz: (mazos, numPreguntas, onSucces, onFailure) => dispatch(QuizzActions.createQuizz(mazos, numPreguntas, onSucces, onFailure))
   }
 }
 

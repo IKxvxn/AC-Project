@@ -135,6 +135,7 @@ export const overFlowHidden = {
 
 export const cardHeaderTextContainer = {
   height: "3.5rem", 
+  width: "100%",
   marginBottom: "-0.5rem", 
   marginRight: "-4rem", 
   marginTop: "-0.5rem", 

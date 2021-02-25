@@ -64,7 +64,7 @@ class deckLayout extends Component {
               </Fragment>
 
             : 
-              <LoadingScreen />
+              <LoadingScreen marginTop="25vh" />
           }         
             
         </Row>

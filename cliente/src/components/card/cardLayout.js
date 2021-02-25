@@ -3,6 +3,7 @@ import { Row, Divider, Input } from 'antd';
 import { withRouter } from 'react-router-dom'
 import CardContainer from './cardContainer'
 import LoadingScreen from '../otherComponents/loadingScreen'
+import * as Messages from '../../assets/mensajes'
 import * as ClientColors from '../../assets/clientColors'
 import * as ClientBanners from '../../assets/clientBanners'
 import * as Style from '../../style/myStyle'
@@ -20,9 +21,9 @@ class cardLayout extends Component {
     }
   }
 
-  cardPlaceholderText = [{fact: "Hint 1", description: "Cuando el texto supere el tamaño de la carta se desplegará un barra lateral visible al colocar el ratón sobre la carta"},
-                         {fact: "Hint 2", description: "Al realizar quizzes las cartas con los mismos atributos serán utilizadas para generar las opciones de respuesta."},
-                         {fact: "Hint 3", description: "Si no se encuentran otras opciones para generar las respuestas la pregunta pasará a ser de complete."}]
+  cardPlaceholderText = [{fact: "Hint 1", description: Messages.cardsHint1},
+                         {fact: "Hint 2", description: Messages.cardsHint2},
+                         {fact: "Hint 3", description: Messages.cardsHint3}]
 
   getDeck = () => {
     let deck = this.props.decks.find(deck => deck._id === this.props.match.params.mazoId)
@@ -83,7 +84,7 @@ class cardLayout extends Component {
               ))}
             </Fragment>
           :
-            <LoadingScreen />
+            <LoadingScreen marginTop="25vh"/>
           }
 
         </ Row>

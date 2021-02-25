@@ -103,7 +103,6 @@ const homeReducer = (state = DEFAULT_STATE, action) => {
             }
         case Acciones.UPDATE_CARD_SUCCESS:
             updateData = state.decks.find(deck=> deck._id===action.deckId)
-            console.log(action.card)
             updateData.cards=updateData.cards.map(card => card._id===action.card._id?action.card:card)
             return {
                 ...state,

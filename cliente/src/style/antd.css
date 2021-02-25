@@ -4292,8 +4292,8 @@ a.ant-btn-sm {
   display: inline-block;
   flex: 1;
   padding: 16px 0;
-  overflow: hidden;
-  white-space: nowrap;
+  overflow: auto;
+  white-space: initial;
   text-overflow: ellipsis;
 }
 .ant-card-head-title > .ant-typography,

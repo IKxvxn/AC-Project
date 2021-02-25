@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Spin } from 'antd';
+import React, { Component, Fragment } from 'react';
+import { Spin, Typography } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
 
@@ -9,7 +9,10 @@ class colorPicker extends Component {
 
     render() {
         return (
-            <Spin style={{width:"100%", marginTop:"25vh"}} indicator={antIcon} />
+            <Fragment>
+                <Spin style={{width:"100%", marginTop:this.props.marginTop}} indicator={antIcon} />
+                <Typography.Text type="success" style={{fontSize:"1.2rem", textAlign:"center",paddingTop:"1rem",display:"block", width:"100%"}}>Cargando...</Typography.Text>
+            </Fragment>
         );
     }
 }

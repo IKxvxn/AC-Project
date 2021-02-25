@@ -7,7 +7,7 @@ import * as Style from '../../style/myStyle'
 
 const { Meta } = Card;
 
-class deck extends Component {
+class card extends Component {
 
   render() {
 
@@ -48,4 +48,4 @@ class deck extends Component {
   }
 }
 
-export default deck
+export default card
