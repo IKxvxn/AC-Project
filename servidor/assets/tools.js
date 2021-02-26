@@ -17,11 +17,16 @@ function shuffle(a) {
     return a;
 }
 
-function compareAbsolute(stringA, stringB) {
+function compareAbsolute(stringA, stringB, addedValues) {
     stringA = stringA.replace(/[^A-Za-z0-9]/gi,"").toLowerCase()
     stringB = stringB.replace(/[^A-Za-z0-9]/gi,"").toLowerCase()
 
-    return stringA.includes(stringB)
+    for(const index in addedValues) {
+        copy = addedValues[index].replace(/[^A-Za-z0-9]/gi,"").toLowerCase()
+        if(stringB.includes(copy)) {return true}
+    }
+
+    return (stringA.includes(stringB))
 }
 
 module.exports = {

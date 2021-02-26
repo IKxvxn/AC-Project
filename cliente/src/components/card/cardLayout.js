@@ -21,9 +21,9 @@ class cardLayout extends Component {
     }
   }
 
-  cardPlaceholderText = [{fact: "Hint 1", description: Messages.cardsHint1},
-                         {fact: "Hint 2", description: Messages.cardsHint2},
-                         {fact: "Hint 3", description: Messages.cardsHint3}]
+  cardPlaceholderText = [{ fact: "Hint 1", description: Messages.cardsHint1 },
+  { fact: "Hint 2", description: Messages.cardsHint2 },
+  { fact: "Hint 3", description: Messages.cardsHint3 }]
 
   getDeck = () => {
     let deck = this.props.decks.find(deck => deck._id === this.props.match.params.mazoId)
@@ -34,17 +34,17 @@ class cardLayout extends Component {
   }
 
   onSearchAux = (filter) => {
-    if(filter!==""){
-      this.setState({filteredData: this.state.deck.cards.filter(card => card.name.toLowerCase().includes(filter))})
-    } 
-    else{
-      this.setState({filteredData: this.state.deck.cards})
+    if (filter !== "") {
+      this.setState({ filteredData: this.state.deck.cards.filter(card => card.name.toLowerCase().includes(filter)) })
+    }
+    else {
+      this.setState({ filteredData: this.state.deck.cards })
     }
   }
 
   onSearch = (event) => {
-    this.setState({filter:event.target.value.toLowerCase()})
-    this.onSearchAux( event.target.value.toLowerCase())
+    this.setState({ filter: event.target.value.toLowerCase() })
+    this.onSearchAux(event.target.value.toLowerCase())
   }
 
   render() {
@@ -54,13 +54,13 @@ class cardLayout extends Component {
         <Row gutter={[8, 8]}>
           <Input.Search placeholder="Buscar Carta" onChange={this.onSearch} allowClear size="large" />
           {!this.props.isLoading
-            
-          ?
+
+            ?
             <Fragment>
               <CardContainer
                 createMode={true}
-                selectedBanner={this.state.deck? ClientBanners.getBannerByKey(this.state.deck.bannerKey).banner.large:null}
-                selectedColor={this.state.deck? ClientColors.getColorByKey(this.state.deck.colorKey).name:null}
+                selectedBanner={this.state.deck ? ClientBanners.getBannerByKey(this.state.deck.bannerKey).banner.large : null}
+                selectedColor={this.state.deck ? ClientColors.getColorByKey(this.state.deck.colorKey).name : null}
                 onFinish={this.props.createCard}
                 isCreating={this.props.isCreating}
                 deckId={this.state.deck._id}
@@ -71,8 +71,8 @@ class cardLayout extends Component {
               {this.state.filteredData.map((card) => (
                 <CardContainer
                   createMode={false}
-                  selectedBanner={this.state.deck? ClientBanners.getBannerByKey(this.state.deck.bannerKey).banner.large:null}
-                  selectedColor={this.state.deck? ClientColors.getColorByKey(this.state.deck.colorKey).name:null}
+                  selectedBanner={this.state.deck ? ClientBanners.getBannerByKey(this.state.deck.bannerKey).banner.large : null}
+                  selectedColor={this.state.deck ? ClientColors.getColorByKey(this.state.deck.colorKey).name : null}
                   onFinish={this.props.updateCard}
                   onDelete={this.props.deleteCard}
                   isCreating={this.props.isCreating}
@@ -83,8 +83,8 @@ class cardLayout extends Component {
                 />
               ))}
             </Fragment>
-          :
-            <LoadingScreen marginTop="25vh"/>
+            :
+            <LoadingScreen marginTop="25vh" />
           }
 
         </ Row>
@@ -92,13 +92,13 @@ class cardLayout extends Component {
     );
   }
   componentDidUpdate(oldProps) {
-    if (oldProps.isLoading===true && this.props.isLoading===false) {
+    if (oldProps.isLoading === true && this.props.isLoading === false) {
       let deck = this.getDeck()
-      this.setState({ deck: deck, filteredData:deck.cards })
+      this.setState({ deck: deck, filteredData: deck.cards })
     }
-    if(oldProps.isCreating===true && this.props.isCreating===false){
+    if (oldProps.isCreating === true && this.props.isCreating === false) {
       let deck = this.getDeck()
-      this.setState({ deck: deck})
+      this.setState({ deck: deck })
       this.onSearchAux(this.state.filter)
     }
   }

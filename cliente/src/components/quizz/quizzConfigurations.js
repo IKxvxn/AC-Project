@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button, Radio, Select, Cascader, DatePicker, InputNumber, TreeSelect, Switch } from 'antd';
+import { Form, InputNumber, TreeSelect, Switch } from 'antd';
 import Tooltip from '../otherComponents/tooltip'
 import * as Rules from '../../assets/formsRules'
 const { SHOW_PARENT } = TreeSelect;
@@ -19,11 +19,11 @@ class quizzConfigurations extends Component {
                     <InputNumber min={1} max={30} onChange={this.props.onNumPreguntasChange} defaultValue={this.props.numPreguntasState} /> <Tooltip title="Entre 1 y 30 preguntas" />
                 </Form.Item>
 
-                <Form.Item  label="Timer">
+                <Form.Item label="Timer">
                     <Switch defaultChecked={this.props.switchState} onChange={this.props.onSwitchTimerChange} checkedChildren="Sí" unCheckedChildren="No" />
                 </Form.Item>
 
-                <Form.Item  label="Tiempo">
+                <Form.Item label="Tiempo">
                     <InputNumber disabled={!this.props.switchState} onChange={this.props.onNumSegundosChange} min={15} max={180} defaultValue={this.props.numSegundosState} /> <Tooltip title="Entre 15 y 180 segundos" />
                 </Form.Item>
 

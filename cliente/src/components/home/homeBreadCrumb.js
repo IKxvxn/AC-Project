@@ -5,19 +5,19 @@ import HomeBreadCrumbItem from './homeBreadCrumbItem'
 import * as Style from '../../style/myStyle'
 
 class homeBreadCrumb extends Component {
-      
-      render() {
+
+    render() {
 
         const pathComponents = this.props.pathName.split("/");
 
         return (
             <Breadcrumb style={Style.homeLayoutBreadcrumb}>
                 {pathComponents.map(
-                    function(pathComponent) {return <HomeBreadCrumbItem pathComponent = {pathComponent} />}
-                )} 
-            </Breadcrumb>                  
+                    function (pathComponent) { return <HomeBreadCrumbItem pathComponent={pathComponent} /> }
+                )}
+            </Breadcrumb>
         );
-      }
     }
+}
 
 export default homeBreadCrumb

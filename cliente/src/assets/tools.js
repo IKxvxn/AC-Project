@@ -10,11 +10,11 @@ export function sleep(duration) {
 
 export function createQuizzDeckBodyBuilder(mazosSinFiltrar) {
 	let mazosFiltrados = {}
-	for(let i=0; i<mazosSinFiltrar.length; i++) {
+	for (let i = 0; i < mazosSinFiltrar.length; i++) {
 		let actualData = mazosSinFiltrar[i].split(separadorDeIds)
 
-		if (actualData.length===1) {
-			mazosFiltrados[actualData[0]]=true
+		if (actualData.length === 1) {
+			mazosFiltrados[actualData[0]] = true
 		}
 		else {
 			mazosFiltrados[actualData[0]] = mazosFiltrados[actualData[0]] || []

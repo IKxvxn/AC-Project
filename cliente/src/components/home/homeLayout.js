@@ -8,6 +8,7 @@ import HomeBreadCrumb from './homeBreadCrumb'
 import DecksLayout from '../deck/decksLayout'
 import CardLayout from '../card/cardLayout'
 import QuizzLayout from '../quizz/quizzLayout'
+import InfoLayout from '../info/infoLayout'
 import * as LoginActions from '../login/loginActions'
 import * as HomeActions from './homeActions'
 import * as QuizzActions from '../quizz/quizzActions'
@@ -93,7 +94,7 @@ class homeLayout extends Component {
 
               <Content style={Style.homeLayoutSecondaryContent}>
                 <Switch>
-                  <Route exact path={CLIENT_ROUTES.homeRoute} render={() => <Fragment />} />
+                  <Route exact path={CLIENT_ROUTES.homeRoute} render={() => <InfoLayout />} />
                   <Route exact path={CLIENT_ROUTES.accountRoute} render={() => <Fragment />} />
                   <Route exact path={CLIENT_ROUTES.decksRoute} render={() => <DecksLayout decks={this.props.decks} isLoading={this.props.isLoading} isCreating={this.props.isCreating} createDeck={this.props.createDeck} updateDeck={this.props.updateDeck} deleteDeck={this.props.deleteDeck} />} />
                   <Route exact path={CLIENT_ROUTES.cardsRoute} render={() => <CardLayout decks={this.props.decks} isLoading={this.props.isLoading} isCreating={this.props.isCreating} createCard={this.props.createCard} updateCard={this.props.updateCard} deleteCard={this.props.deleteCard} />} />

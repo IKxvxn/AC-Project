@@ -130,16 +130,33 @@ export const cardHeaderText = {
 }
 
 export const overFlowHidden = {
-  overflow : "hidden" 
+  overflow: "hidden"
 }
 
 export const cardHeaderTextContainer = {
-  height: "3.5rem", 
+  height: "3.5rem",
   width: "100%",
-  marginBottom: "-0.5rem", 
-  marginRight: "-4rem", 
-  marginTop: "-0.5rem", 
-  backgroundSize: "13rem auto", 
-  backgroundRepeat: "no-repeat", 
+  marginBottom: "-0.5rem",
+  marginRight: "-4rem",
+  marginTop: "-0.5rem",
+  backgroundSize: "13rem auto",
+  backgroundRepeat: "no-repeat",
   backgroundPosition: "right"
+}
+
+// Quizzes
+
+export const stepsContainer = {
+  minHeight: "45vh",
+  marginTop: "2rem"
+}
+
+// Loading Page
+
+export const loadingPage = {
+  fontSize: "1.2rem",
+  textAlign: "center",
+  paddingTop: "1rem",
+  display: "block",
+  width: "100%"
 }

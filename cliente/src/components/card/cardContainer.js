@@ -4,9 +4,6 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import Card from './card'
 import * as Rules from '../../assets/formsRules'
 import * as Style from '../../style/myStyle'
-import * as ClientColors from '../../assets/clientColors'
-import * as ClientBanners from '../../assets/clientBanners'
-
 
 class cardContainer extends Component {
 
@@ -24,7 +21,7 @@ class cardContainer extends Component {
     }
 
     onFinish = (datos) => {
-        datos._id=this.props.cardId
+        datos._id = this.props.cardId
         this.props.onFinish(
             this.props.deckId, datos, () => { this.toggleHandler(false) }
         )
@@ -36,7 +33,7 @@ class cardContainer extends Component {
                 <Card
                     deckId={this.props._id}
                     cardName={this.props.cardName}
-                    cardData={this.props.cardData===undefined?[]:this.props.cardData}
+                    cardData={this.props.cardData === undefined ? [] : this.props.cardData}
                     banner={this.props.selectedBanner}
                     onOpen={() => this.toggleHandler(true)}
                     onDelete={() => { this.props.onDelete(this.props.deckId, this.props.cardId) }}
@@ -51,9 +48,9 @@ class cardContainer extends Component {
                     onCancel={() => this.toggleHandler(false)}
                     footer={null}
                 >
-                    <Form onFinish={this.onFinish} preserve={false} initialValues={this.props.createMode?null:{details:this.props.cardData}}>
+                    <Form onFinish={this.onFinish} preserve={false} initialValues={this.props.createMode ? null : { details: this.props.cardData }}>
 
-                        <Form.Item {...Style.createDeckForm} name="name" label="Nombre" rules={Rules.newCardName} initialValue={this.props.createMode?null:this.props.cardName}>
+                        <Form.Item {...Style.createDeckForm} name="name" label="Nombre" rules={Rules.newCardName} initialValue={this.props.createMode ? null : this.props.cardName}>
                             <Input />
                         </Form.Item>
 
@@ -76,7 +73,7 @@ class cardContainer extends Component {
 
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                                                     <Form.Item {...field} name={[field.name, 'description']} fieldKey={[field.fieldKey, 'description']} rules={Rules.newDescripcion}>
-                                                        <Input.TextArea rows={2}  placeholder="Descripción" />
+                                                        <Input.TextArea rows={2} placeholder="Descripción" />
                                                     </Form.Item>
                                                 </Col>
                                             </Row>
@@ -97,7 +94,7 @@ class cardContainer extends Component {
                                     <Button block onClick={() => this.toggleHandler(false)}>Cancelar</Button>
                                 </Col>
                                 <Col xs={24} sm={12} md={12} lg={12} xl={12}>
-                                    <Button type="primary" block htmlType="submit" loading={this.props.isCreating} >{this.props.createMode?"Crear":"Actualizar"}</Button>
+                                    <Button type="primary" block htmlType="submit" loading={this.props.isCreating} >{this.props.createMode ? "Crear" : "Actualizar"}</Button>
                                 </Col>
                             </Row>
                         </Form.Item>

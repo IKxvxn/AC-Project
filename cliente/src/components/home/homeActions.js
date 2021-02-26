@@ -96,7 +96,7 @@ export function getMazos() {
                     })
                 }
                 else {
-                    sleep(0).then( () => { //Esto es sólo para que se note que manejo tiempos de carga
+                    sleep(0).then(() => { //Esto es sólo para que se note que manejo tiempos de carga
                         dispatch({
                             decks: datos.data,
                             type: GET_DECKS_SUCCESS
@@ -164,7 +164,7 @@ export function deleteMazo(deckId) {
         dispatch({
             type: DELETE_DECK_REQUEST
         })
-        fetch(API_ROUTES.HOME + "/deck/" + user.username + "/" + user.token + "/" +deckId, {
+        fetch(API_ROUTES.HOME + "/deck/" + user.username + "/" + user.token + "/" + deckId, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
         })
@@ -182,7 +182,7 @@ export function deleteMazo(deckId) {
                         deckId: deckId,
                         type: DELETE_DECK_SUCCESS
                     })
-                    
+
                 }
             })
             .catch(error => {
@@ -310,7 +310,7 @@ export function deleteCard(deckId, cardId) {
                         cardId: cardId,
                         type: DELETE_CARD_SUCCESS
                     })
-                    
+
                 }
             })
             .catch(error => {

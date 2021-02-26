@@ -6,7 +6,7 @@ class tooltip extends Component {
 
     render() {
         return (
-            <Tooltip title={this.props.title}><InfoCircleOutlined style={{color:"#7ac70c", marginLeft:"0.5rem"}} /></Tooltip>
+            <Tooltip title={this.props.title}><InfoCircleOutlined style={{ color: "#7ac70c", marginLeft: "0.5rem" }} /></Tooltip>
         );
     }
 }

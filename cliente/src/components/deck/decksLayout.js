@@ -17,17 +17,17 @@ class deckLayout extends Component {
   }
 
   onSearchAux = (filter) => {
-    if(filter!==""){
-      this.setState({filteredData: this.props.decks.filter(deck => deck.name.toLowerCase().includes(filter))})
+    if (filter !== "") {
+      this.setState({ filteredData: this.props.decks.filter(deck => deck.name.toLowerCase().includes(filter)) })
     }
-    else{
-      this.setState({filteredData: this.props.decks})
+    else {
+      this.setState({ filteredData: this.props.decks })
     }
   }
 
   onSearch = (event) => {
-    this.setState({filter: event.target.value.toLowerCase()})
-    this.onSearchAux( event.target.value.toLowerCase())
+    this.setState({ filter: event.target.value.toLowerCase() })
+    this.onSearchAux(event.target.value.toLowerCase())
   }
 
   render() {
@@ -37,47 +37,47 @@ class deckLayout extends Component {
         <Row gutter={[8, 8]}>
           <Input.Search placeholder="Buscar Mazo" onChange={this.onSearch} allowClear size="large" />
 
-            {!this.props.isLoading
-            
-            ? 
-              <Fragment>
-                <DeckContainer
-                  createMode={true}
-                  selectedBanner={ClientBanners.banners[0].key}
-                  selectedColor={ClientColors.colors[5]}
-                  onFinish={this.props.createDeck}
-                  isCreating={this.props.isCreating}
-                  deckName="Crear Mazo"
-                />
-                
-                {this.state.filteredData.map((deck) => (
-                  <DeckContainer
-                    selectedBanner={deck.bannerKey}
-                    selectedColor={ClientColors.getColorByKey(deck.colorKey)}
-                    onFinish={this.props.updateDeck}
-                    onDelete={this.props.deleteDeck}
-                    isCreating={this.props.isCreating}
-                    deckName={deck.name}
-                    _id={deck._id}
-                  />
-                ))}
-              </Fragment>
+          {!this.props.isLoading
 
-            : 
-              <LoadingScreen marginTop="25vh" />
-          }         
-            
+            ?
+            <Fragment>
+              <DeckContainer
+                createMode={true}
+                selectedBanner={ClientBanners.banners[0].key}
+                selectedColor={ClientColors.colors[5]}
+                onFinish={this.props.createDeck}
+                isCreating={this.props.isCreating}
+                deckName="Crear Mazo"
+              />
+
+              {this.state.filteredData.map((deck) => (
+                <DeckContainer
+                  selectedBanner={deck.bannerKey}
+                  selectedColor={ClientColors.getColorByKey(deck.colorKey)}
+                  onFinish={this.props.updateDeck}
+                  onDelete={this.props.deleteDeck}
+                  isCreating={this.props.isCreating}
+                  deckName={deck.name}
+                  _id={deck._id}
+                />
+              ))}
+            </Fragment>
+
+            :
+            <LoadingScreen marginTop="25vh" />
+          }
+
         </Row>
       </Fragment>
     );
   }
 
   componentDidUpdate(oldProps) {
-    if (oldProps.isLoading===true && this.props.isLoading===false) {
+    if (oldProps.isLoading === true && this.props.isLoading === false) {
       this.setState({ filteredData: this.props.decks })
     }
-    if(oldProps.isCreating===true && this.props.isCreating===false){
-      this.onSearchAux(this.state.filter) 
+    if (oldProps.isCreating === true && this.props.isCreating === false) {
+      this.onSearchAux(this.state.filter)
     }
   }
 }

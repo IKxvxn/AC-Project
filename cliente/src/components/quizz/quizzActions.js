@@ -48,7 +48,6 @@ export function createQuizz(mazosSinFiltrar, numDePreguntas, onSuccess, onFailur
                 }
             })
             .catch(error => {
-                console.log(error)
                 message.error(Messages.serverConecctionError)
                 dispatch({
                   type: CREATE_QUIZZ_FAILURE,

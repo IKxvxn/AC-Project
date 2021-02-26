@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
-import { LocaleProvider } from 'antd';
+import { ConfigProvider } from 'antd';
 import App from './App';
 import Spanish from 'antd/lib/locale-provider/es_ES';
 import Store from './Store'
@@ -13,9 +13,9 @@ ReactDOM.render(
 
     <Provider store={Store}>
         <BrowserRouter>
-            <LocaleProvider locale={Spanish}>
+            <ConfigProvider locale={Spanish}>
                 <App />
-            </LocaleProvider>
+            </ConfigProvider>
         </BrowserRouter>
     </Provider>
 

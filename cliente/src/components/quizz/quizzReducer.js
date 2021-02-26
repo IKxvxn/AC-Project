@@ -23,13 +23,11 @@ const homeReducer = (state = DEFAULT_STATE, action) => {
             return {
                 ...state,
                 isCreating: false,
-                quiz: action.quiz.filter(question => question.options.length>1)
+                quiz: action.quiz
             }
         default:
             return state
-
     }
-
 }
 
 export default homeReducer

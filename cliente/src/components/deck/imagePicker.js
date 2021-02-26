@@ -19,7 +19,7 @@ class imagePicker extends Component {
         );
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.carouselRef.current.goTo(this.props.selectedBanner, true)
     }
 }

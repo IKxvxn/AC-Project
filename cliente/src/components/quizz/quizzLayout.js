@@ -1,12 +1,11 @@
 import React, { Component, Fragment } from 'react';
-import { Steps, Button, message, Divider } from 'antd';
+import { Steps, Button, Divider } from 'antd';
 import QuizzConfigurations from './quizzConfigurations'
 import LoadingScreen from '../otherComponents/loadingScreen'
 import QuizzDisplayer from "./quizzDisplayer"
 import * as Style from '../../style/myStyle'
 
 const { Step } = Steps;
-
 
 class quizzLayout extends Component {
 
@@ -25,7 +24,6 @@ class quizzLayout extends Component {
 
   next = () => {
     this.setState({ current: this.state.current + 1 })
-    console.log(this.state.current)
   };
 
   prev = () => {
@@ -40,7 +38,7 @@ class quizzLayout extends Component {
   onCreateQuizz = () => {
     this.next()
     this.props.createQuizz(
-      this.state.selectedDecks, 
+      this.state.selectedDecks,
       this.state.numPreguntas,
       this.next,
       this.prev,
@@ -70,11 +68,9 @@ class quizzLayout extends Component {
       },
       {
         key: 2,
-        content: <QuizzDisplayer quiz={this.props.quiz} numSegundos={this.state.numSegundos}/>,
+        content: <QuizzDisplayer quiz={this.props.quiz} numSegundos={this.state.numSegundos} hasTimer={this.state.switchState} />,
       },
     ];
-
-    console.log(this.props.quiz)
 
     return (
       <Fragment>
@@ -86,17 +82,17 @@ class quizzLayout extends Component {
           ))}
         </Steps>
 
-        <div style={{ "min-height": "45vh", "margin-top": "2rem" }}>{this.steps[this.state.current].content}</div>
+        <div style={Style.stepsContainer}>{this.steps[this.state.current].content}</div>
 
-        <div style={{ "margin-top": "24px" }}>
+        <div style={{ "margin-top": "4rem" }}>
           {this.state.current === 0 && (
             <Button type="primary" disabled={this.props.isCreatingQuizz} onClick={this.onCreateQuizz}>
               Crear
             </Button>
           )}
           {this.state.current === this.steps.length - 1 && (
-            <Button type="primary" onClick={() => message.success('Processing complete!')}>
-              Done
+            <Button type="secondary" onClick={() => this.setState({ current: 0 })}>
+              Crear Otro Quiz
             </Button>
           )}
         </div>

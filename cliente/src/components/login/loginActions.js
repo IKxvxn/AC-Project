@@ -22,13 +22,13 @@ export function login(usuario, history) {
         dispatch({
             type: LOGIN_REQUEST
         })
-        fetch(API_ROUTES.AUTH + "/account/"+usuario.username+"/"+usuario.password, {
+        fetch(API_ROUTES.AUTH + "/account/" + usuario.username + "/" + usuario.password, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         })
             .then(response => response.json())
             .then(datos => {
-                if(datos.error){
+                if (datos.error) {
                     message.error(datos.message)
 
                     dispatch({
@@ -39,18 +39,18 @@ export function login(usuario, history) {
                     message.success(datos.message)
 
                     history.push(CLIENT_ROUTES.homeRoute)
-                    LocalStorage.saveState({user:datos.data})
+                    LocalStorage.saveState({ user: datos.data })
 
                     Promise.resolve(dispatch({
                         user: datos.data,
                         type: LOGIN_SUCCESS
-                    })).then(()=>dispatch(homeActions.getMazos()))
+                    })).then(() => dispatch(homeActions.getMazos()))
                 }
             })
             .catch(error => {
                 message.error(Messages.serverConecctionError)
                 dispatch({
-                  type: LOGIN_FAILURE,
+                    type: LOGIN_FAILURE,
                 })
             })
     }
@@ -68,7 +68,7 @@ export function crearCuenta(usuario) {
         })
             .then(response => response.json())
             .then(datos => {
-                if(datos.error){
+                if (datos.error) {
                     message.error(datos.message)
 
                     dispatch({
@@ -85,7 +85,7 @@ export function crearCuenta(usuario) {
             .catch(error => {
                 message.error(Messages.serverConecctionError)
                 dispatch({
-                  type: CREATE_ACCOUNT_FAILURE,
+                    type: CREATE_ACCOUNT_FAILURE,
                 })
             })
     }
@@ -96,10 +96,10 @@ export function loadSessionState(history) {
 
         let user = LocalStorage.loadState()
 
-        if(Object.keys(user).length === 0 & window.location.pathname.localeCompare(CLIENT_ROUTES.rootRoute)) {
+        if (Object.keys(user).length === 0 & window.location.pathname.localeCompare(CLIENT_ROUTES.rootRoute)) {
             history.push(CLIENT_ROUTES.rootRoute)
         }
-        else if(Object.keys(user).length != 0 & !window.location.pathname.localeCompare(CLIENT_ROUTES.rootRoute)){
+        else if (Object.keys(user).length != 0 & !window.location.pathname.localeCompare(CLIENT_ROUTES.rootRoute)) {
             history.push(CLIENT_ROUTES.homeRoute)
         }
 

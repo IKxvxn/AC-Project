@@ -1,20 +1,20 @@
 export const loadState = () => {
-    try{
+    try {
         const serializerdState = localStorage.getItem('sessionState')
-        if(serializerdState===null){
+        if (serializerdState === null) {
             return {}
         }
         return JSON.parse(serializerdState);
-    }catch(error){return {}}
+    } catch (error) { return {} }
 }
 
-export const saveState = (state) =>{
-    try{
+export const saveState = (state) => {
+    try {
         const serializerdState = JSON.stringify(state)
-        localStorage.setItem('sessionState',serializerdState)
-    }catch(error){}
+        localStorage.setItem('sessionState', serializerdState)
+    } catch (error) { }
 }
 
-export const removeState = () =>{
+export const removeState = () => {
     localStorage.removeItem('sessionState');
 }

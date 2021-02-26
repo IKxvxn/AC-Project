@@ -6,7 +6,7 @@ class imagePickerElement extends Component {
     render() {
 
         return (
-            <div style={{background:this.props.background.name}}>
+            <div style={{ background: this.props.background.name }}>
                 <img
                     style={Style.createDeckBanner}
                     src={this.props.banner.banner.large}
