@@ -19,6 +19,11 @@ export const newDeckName = [
     { min: 5, message: '🦴 Número de caracteres mínimo: 5' }
 ]
 
+//Import deck
+export const importDeckCode = [
+    { required: true, message: '🦴 Por favor proporcione el código del mazo' }
+]
+
 //Create card
 export const newCardName = [
     { required: true, message: '🦴 Por favor elija un nombre para la carta' },

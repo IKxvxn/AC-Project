@@ -6,7 +6,6 @@ const DEFAULT_STATE = {
 }
 
 const homeReducer = (state = DEFAULT_STATE, action) => {
-    let updateData
 
     switch (action.type) {
         case Acciones.CREATE_QUIZZ_REQUEST:

@@ -26,6 +26,22 @@ const homeReducer = (state = DEFAULT_STATE, action) => {
                 isCreating: false,
                 decks: [...state.decks, action.deck]
             }
+        case Acciones.IMPORT_DECK_REQUEST:
+            return {
+                ...state,
+                isCreating: true
+            }
+        case Acciones.IMPORT_DECK_FAILURE:
+            return {
+                ...state,
+                isCreating: false
+            }
+        case Acciones.IMPORT_DECK_SUCCESS:
+            return {
+                ...state,
+                isCreating: false,
+                decks: [...state.decks, action.deck]
+            }
         case Acciones.GET_DECKS_REQUEST:
             return {
                 ...state,

@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
-import { Row, Col, Card, Popconfirm, Typography } from 'antd';
-import { EditOutlined, DeleteOutlined, PlusCircleOutlined, EyeOutlined } from '@ant-design/icons';
+import { Row, Col, Card, Popconfirm, Typography, Tooltip } from 'antd';
+import { EditOutlined, DeleteOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { Scrollbars } from 'react-custom-scrollbars';
 import * as Messages from '../../assets/mensajes'
 import * as Style from '../../style/myStyle'
-
-const { Meta } = Card;
 
 class card extends Component {
 
   render() {
 
     let actions = this.props.createMode ? [
-      <PlusCircleOutlined onClick={this.props.onOpen} key="create" />] :
+        <Tooltip placement="bottom" title="Crear"><PlusCircleOutlined onClick={this.props.onOpen} key="create" /></Tooltip>] :
       [
-        <Popconfirm title={Messages.deleteCardConfirmation} placement="top" onConfirm={this.props.onDelete} okText="Sí" cancelText="No"> <a href="#"><DeleteOutlined key="delete" /></a></Popconfirm>,
-        <EditOutlined onClick={this.props.onOpen} key="edit" />,
+        <Tooltip placement="bottom" title="Borrar"><Popconfirm title={Messages.deleteCardConfirmation} placement="top" onConfirm={this.props.onDelete} okText="Sí" cancelText="No"> <a href="#"><DeleteOutlined key="delete" /></a></Popconfirm></Tooltip>,
+        <Tooltip placement="bottom" title="Editar"><EditOutlined onClick={this.props.onOpen} key="edit" /></Tooltip>,
       ]
 
     return (

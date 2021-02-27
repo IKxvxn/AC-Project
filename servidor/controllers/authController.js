@@ -2,7 +2,9 @@ const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const config = require('../config')
+const uuid = require('uuid');
 const usuarioModel = require('../models/usuarioModel')
+const deckModel = require('../models/deckModel')
 const ResponseMessages = require('../assets/responseMessages')
 const ResponseBuilder = require('../assets/responseBuilder')
 const Tools = require('../assets/tools')
@@ -45,7 +47,23 @@ function crearCuenta(req, res) {
         ResponseBuilder.sendErrorResponse(res, ResponseMessages.getMongoMessageByErrorCode(error.code))
       }
       else {
-        ResponseBuilder.sendSuccessResponse(res, ResponseMessages.createAccountSuccess, {})
+
+        deckModel.find({ owner: "adm" }).exec((error, result) => {
+          if (error) {
+            ResponseBuilder.sendErrorResponse(res, ResponseMessages.getMongoMessageByErrorCode(error.code))
+          }
+          else {
+            result.map(deck => {
+              deck._id = uuid.v4()
+              deck.shareCode = uuid.v4()
+              deck.owner = Tools.normaliceUsername(usuario.username) 
+            })
+
+            deckModel.insertMany(result)
+
+            ResponseBuilder.sendSuccessResponse(res, ResponseMessages.createAccountSuccess, {})
+          }
+        })
       }
     })
   }

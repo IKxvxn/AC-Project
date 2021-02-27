@@ -48,7 +48,7 @@ class cardContainer extends Component {
                     onCancel={() => this.toggleHandler(false)}
                     footer={null}
                 >
-                    <Form onFinish={this.onFinish} preserve={false} initialValues={this.props.createMode ? null : { details: this.props.cardData }}>
+                    <Form onFinish={this.onFinish} preserve={false} initialValues={this.props.createMode ?  { details: this.props.deckAttributes } : { details: this.props.cardData }}>
 
                         <Form.Item {...Style.createDeckForm} name="name" label="Nombre" rules={Rules.newCardName} initialValue={this.props.createMode ? null : this.props.cardName}>
                             <Input />

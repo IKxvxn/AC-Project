@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Modal, Button, Form, Input, Row, Col } from 'antd';
+import { Modal, Button, Form, Input, Row, Col, message } from 'antd';
 import Deck from './deck'
 import ColorPicker from './colorPicker'
 import ImagePicker from './imagePicker'
@@ -16,6 +16,7 @@ class deckContainer extends Component {
 
         this.state = {
             isModalVisible: false,
+            isImportModalVisible: false,
             selectedColor: this.props.selectedColor,
             selectedBanner: this.props.selectedBanner
         };
@@ -26,6 +27,10 @@ class deckContainer extends Component {
         this.setState({ selectedColor: this.props.selectedColor, selectedBanner: this.props.selectedBanner })
     }
 
+    importModaltoggleHandler(isImportModalVisible) {
+        this.setState({ isImportModalVisible });
+    }
+
     onColorChange = (selectedColor) => {
         this.setState({ selectedColor });
     }
@@ -34,24 +39,36 @@ class deckContainer extends Component {
         this.setState({ selectedBanner });
     }
 
+    onExport = (text) => {
+        navigator.clipboard.writeText(text)
+        message.success("Código de mazo copiado. Ahora puedes compartirlo")
+    }
+
     onFinish = (datos) => {
         this.props.onFinish(
             { ...datos, colorKey: this.state.selectedColor.key, bannerKey: ClientBanners.banners[this.state.selectedBanner].key, _id: this.props._id },
             () => { this.toggleHandler(false) }
         )
-    };
+    }
+
+    onImportFinish = (datos) => {
+        this.props.importDeck(datos.code, () => { this.importModaltoggleHandler(false) })
+    }
 
     render() {
         return (
             <Fragment>
                 <Deck
                     deckId={this.props._id}
+                    deckShareCode={this.props.deckShareCode}
                     deckName={this.props.deckName}
                     banner={ClientBanners.getBannerByKey(this.props.selectedBanner).banner.large}
                     onOpen={() => this.toggleHandler(true)}
                     onDelete={() => { this.props.onDelete(this.props._id) }}
                     background={this.props.selectedColor.name}
                     createMode={this.props.createMode}
+                    onExport={this.onExport}
+                    onImport={() => this.importModaltoggleHandler(true)}
                 />
                 <Modal
                     title={this.props.deckName}
@@ -82,6 +99,26 @@ class deckContainer extends Component {
                                 </Col>
                                 <Col xs={24} sm={12} md={6} lg={6} xl={6}>
                                     <Button type="primary" block htmlType="submit" loading={this.props.isCreating} >{this.props.createMode ? "Crear" : "Actualizar"}</Button>
+                                </Col>
+                            </Row>
+                        </Form.Item>
+
+                    </Form>
+                </Modal>
+                <Modal title={"Importar Mazo"} centered destroyOnClose={true} visible={this.state.isImportModalVisible} onCancel={() => this.importModaltoggleHandler(false)} footer={null}>
+                    <Form onFinish={this.onImportFinish} preserve={false}>
+
+                        <Form.Item {...Style.createDeckForm} name="code" label="Código" rules={Rules.importDeckCode}>
+                            <Input />
+                        </Form.Item>
+
+                        <Form.Item>
+                            <Row justify="end" gutter={[8, 8]}>
+                                <Col xs={24} sm={12} md={6} lg={6} xl={6}>
+                                    <Button block onClick={() => this.importModaltoggleHandler(false)}>Cancelar</Button>
+                                </Col>
+                                <Col xs={24} sm={12} md={6} lg={6} xl={6}>
+                                    <Button type="primary" block htmlType="submit" loading={this.props.isCreating} >Importar</Button>
                                 </Col>
                             </Row>
                         </Form.Item>

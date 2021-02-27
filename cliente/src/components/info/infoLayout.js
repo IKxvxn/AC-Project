@@ -1,6 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import { Divider, Typography, Row, Col, Card, List } from 'antd';
 import { Scrollbars } from 'react-custom-scrollbars';
+import CartoonContainer from '../otherComponents/cartoonContainer'
+import * as Style from '../../style/myStyle'
+import ReactLogo from '../../images/logos/React.png'
+import ReduxLogo from '../../images/logos/Redux.png'
+import AntdLogo from '../../images/logos/Antd.png'
+import NodeLogo from '../../images/logos/Node.png'
+import MongoLogo from '../../images/logos/Mongo.png'
 
 
 class infoLayout extends Component {
@@ -16,7 +23,7 @@ class infoLayout extends Component {
 
         return (
             <Fragment>
-                <Divider>Funcionalidad de la Página</Divider>
+                <Divider>Funcionalidades</Divider>
                 <Row gutter={[8, 8]}>
                     <Col span={24}>
                         <Typography.Paragraph style={{ textAlign: "justify" }}>
@@ -68,12 +75,16 @@ class infoLayout extends Component {
                             </Scrollbars>
                         </Card>
                     </Col>
+                    <Col xs={24} sm={12} md={0} lg={0} xl={0}>
+                        <CartoonContainer cartoonKey={1} />
+                    </Col>
                 </Row>
                 <Divider>Apectos Técnicos</Divider>
                 <Row gutter={[8, 8]} justify="space-between">
-                    <Col xs={0} sm={0} md={8} lg={8} xl={8}>
+                    <Col xs={0} sm={12} md={8} lg={8} xl={8}>
+                        <CartoonContainer cartoonKey={0} />
                     </Col>
-                    <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+                    <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                         <List
                             bordered
                             dataSource={listData}
@@ -85,9 +96,27 @@ class infoLayout extends Component {
                         />
                     </Col>
                     <Col xs={0} sm={0} md={8} lg={8} xl={8}>
+                        <CartoonContainer cartoonKey={1} />
                     </Col>
                 </Row>
-                <Divider>Tecnologías Utilizadas</Divider>
+                <Divider>Tecnologías</Divider>
+                <Row justify="center" gutter={[8, 8]}>
+                    <Col xs={12} sm={8} md={5} lg={4} xl={3} style={{ textAlign: "center" }}>
+                        <img style={Style.tecnologiasItem} alt="ReactLogo" src={ReactLogo} />
+                    </Col >
+                    <Col xs={12} sm={8} md={5} lg={4} xl={3} style={{ textAlign: "center" }}>
+                        <img style={Style.tecnologiasItem} alt="ReduxLogo" src={ReduxLogo} />
+                    </Col>
+                    <Col xs={12} sm={8} md={5} lg={4} xl={3} style={{ textAlign: "center" }}>
+                        <img style={Style.tecnologiasItem} alt="AntdLogo" src={AntdLogo} />
+                    </Col>
+                    <Col xs={12} sm={8} md={5} lg={4} xl={3} style={{ textAlign: "center" }}>
+                        <img style={Style.tecnologiasItem} alt="NodeLogo" src={NodeLogo} />
+                    </Col>
+                    <Col xs={12} sm={8} md={5} lg={4} xl={3} style={{ textAlign: "center" }}>
+                        <img style={Style.tecnologiasItem} alt="MongoLogo" src={MongoLogo} />
+                    </Col>
+                </Row>
             </ Fragment>
         );
     }

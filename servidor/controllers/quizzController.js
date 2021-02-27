@@ -35,7 +35,6 @@ function createQuizz(req, res) {
         ResponseBuilder.sendErrorResponse(res, ResponseMessages.noCardsProvided)
       }
       else {
-        Tools.shuffle(allDecksCards)
 
         let possibleAnswers = getPossibleAnswers(allDecksCards)
         let filteredCards = getFilteredCards(allDecksCards, mazos)
@@ -68,16 +67,16 @@ function getQuestionForCard(card, possibleAnswers) {
   let numOptions = 3
   let options = [{correct:true, fact:card.cardDetails.fact, description:card.cardDetails.description}]
   let addedValues = []
-  let iterator = possibleAnswers[card.cardDetails.fact].values()
+  let setItems = Tools.shuffle(Array.from(possibleAnswers[card.cardDetails.fact].values()))
 
   while(numOptions !== 0) {
-    let actualOption = iterator.next()
+    let actualOption = setItems.pop()
 
-    if(actualOption.value === undefined) {break}
+    if(actualOption === undefined) {break}
 
-    if(!Tools.compareAbsolute(card.cardDetails.description, actualOption.value, addedValues)) {
-      options.push({correct:false, fact:card.cardDetails.fact, description:actualOption.value})
-      addedValues.push(actualOption.value)
+    if(!Tools.compareAbsolute(card.cardDetails.description, actualOption, addedValues)) {
+      options.push({correct:false, fact:card.cardDetails.fact, description:actualOption})
+      addedValues.push(actualOption)
       numOptions --
     }
 
@@ -108,7 +107,7 @@ function getFilteredCards(allDecksCards, mazos) {
 
   Object.keys(mazos).map(key => mazos[key] === true ? keys.push(key) : keys.push(...mazos[key]))
 
-  return allDecksCards.filter(card => keys.includes(card.deckId) || keys.includes(card.cardId))
+  return Tools.shuffle(allDecksCards.filter(card => keys.includes(card.deckId) || keys.includes(card.cardId)))
 }
 
 module.exports = {

@@ -29,6 +29,11 @@ function compareAbsolute(stringA, stringB, addedValues) {
     return (stringA.includes(stringB))
 }
 
+function getRandomItem(set) {
+    let items = Array.from(set);
+    return items[Math.floor(Math.random() * items.length)];
+}
+
 module.exports = {
-    normaliceUsername, getRandom, shuffle, compareAbsolute
+    normaliceUsername, getRandom, shuffle, compareAbsolute, getRandomItem
 }

@@ -47,7 +47,8 @@ class deckLayout extends Component {
                 selectedColor={ClientColors.colors[5]}
                 onFinish={this.props.createDeck}
                 isCreating={this.props.isCreating}
-                deckName="Crear Mazo"
+                importDeck={this.props.importDeck}
+                deckName="Añadir Mazo"
               />
 
               {this.state.filteredData.map((deck) => (
@@ -56,9 +57,11 @@ class deckLayout extends Component {
                   selectedColor={ClientColors.getColorByKey(deck.colorKey)}
                   onFinish={this.props.updateDeck}
                   onDelete={this.props.deleteDeck}
+                  onExport={this.onExport}
                   isCreating={this.props.isCreating}
                   deckName={deck.name}
                   _id={deck._id}
+                  deckShareCode={deck.shareCode}
                 />
               ))}
             </Fragment>

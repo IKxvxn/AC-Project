@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Col, Card, Typography } from 'antd';
 
 const emojiArray = ["🧠", "🦴", "👂", "👁️"]

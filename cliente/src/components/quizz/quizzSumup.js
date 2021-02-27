@@ -1,9 +1,5 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Row, Table, Col, Tag } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
-
-
-const antIcon = <LoadingOutlined style={{ fontSize: "5rem" }} spin />;
 
 class quizzSumup extends Component {
 

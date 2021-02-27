@@ -99,7 +99,7 @@ export function loadSessionState(history) {
         if (Object.keys(user).length === 0 & window.location.pathname.localeCompare(CLIENT_ROUTES.rootRoute)) {
             history.push(CLIENT_ROUTES.rootRoute)
         }
-        else if (Object.keys(user).length != 0 & !window.location.pathname.localeCompare(CLIENT_ROUTES.rootRoute)) {
+        else if (Object.keys(user).length !== 0 & !window.location.pathname.localeCompare(CLIENT_ROUTES.rootRoute)) {
             history.push(CLIENT_ROUTES.homeRoute)
         }
 

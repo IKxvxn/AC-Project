@@ -1,5 +1,5 @@
-import React, { Component, Fragment } from 'react';
-import { Route, Switch, withRouter, Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import { Route, Switch, withRouter, Link, Redirect } from 'react-router-dom'
 import { Layout, Menu, Typography } from 'antd';
 import { BookOutlined, BulbOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux'
@@ -9,6 +9,7 @@ import DecksLayout from '../deck/decksLayout'
 import CardLayout from '../card/cardLayout'
 import QuizzLayout from '../quizz/quizzLayout'
 import InfoLayout from '../info/infoLayout'
+import LostPage from '../otherComponents/lostPage'
 import * as LoginActions from '../login/loginActions'
 import * as HomeActions from './homeActions'
 import * as QuizzActions from '../quizz/quizzActions'
@@ -16,7 +17,6 @@ import * as Style from '../../style/myStyle'
 import * as CLIENT_ROUTES from '../../assets/clientRoutes'
 
 const { Header, Content, Footer } = Layout;
-const { SubMenu } = Menu;
 
 class homeLayout extends Component {
 
@@ -62,7 +62,7 @@ class homeLayout extends Component {
                 <Typography style={Style.homeLogoText}>medCards</Typography>
               </Link>
             </Menu.Item>
-            <Menu.Item key="2" icon={<UserOutlined />}>
+            <Menu.Item key="2" icon={<UserOutlined />} disabled={true}>
               <Link to={CLIENT_ROUTES.accountRoute}>
                 Cuenta
               </Link>
@@ -95,15 +95,17 @@ class homeLayout extends Component {
               <Content style={Style.homeLayoutSecondaryContent}>
                 <Switch>
                   <Route exact path={CLIENT_ROUTES.homeRoute} render={() => <InfoLayout />} />
-                  <Route exact path={CLIENT_ROUTES.accountRoute} render={() => <Fragment />} />
-                  <Route exact path={CLIENT_ROUTES.decksRoute} render={() => <DecksLayout decks={this.props.decks} isLoading={this.props.isLoading} isCreating={this.props.isCreating} createDeck={this.props.createDeck} updateDeck={this.props.updateDeck} deleteDeck={this.props.deleteDeck} />} />
+                  <Route exact path={CLIENT_ROUTES.decksRoute} render={() => <DecksLayout decks={this.props.decks} isLoading={this.props.isLoading} isCreating={this.props.isCreating} createDeck={this.props.createDeck} importDeck={this.props.importDeck} updateDeck={this.props.updateDeck} deleteDeck={this.props.deleteDeck} />} />
                   <Route exact path={CLIENT_ROUTES.cardsRoute} render={() => <CardLayout decks={this.props.decks} isLoading={this.props.isLoading} isCreating={this.props.isCreating} createCard={this.props.createCard} updateCard={this.props.updateCard} deleteCard={this.props.deleteCard} />} />
                   <Route exact path={CLIENT_ROUTES.quizzesRoute} render={() => <QuizzLayout createQuizz={this.props.createQuizz} decks={this.props.decks} isCreatingQuizz={this.props.isCreatingQuizz} quiz={this.props.quiz} />} />
+                  <Route path={CLIENT_ROUTES.homeNotFoundRoute} render={() => <LostPage />} />
+                  <Redirect from='*' to={CLIENT_ROUTES.homeNotFoundRoute} />
                 </Switch>
               </Content>
             </Content>
 
-            <Footer style={Style.homeLayoutFooter}>Creado por Kevin A.</Footer>
+            <Footer style={Style.homeLayoutFooter}>Creado por Kevin Arias C. - kevinarias66@gmail.com</Footer>
+
           </Scrollbars>
 
         </Layout>
@@ -138,6 +140,7 @@ function mapDispatchToProps(dispatch) {
     loadSessionState: (history) => dispatch(LoginActions.loadSessionState(history)),
     logout: (history) => dispatch(LoginActions.logout(history)),
     createDeck: (deck, onSucces) => dispatch(HomeActions.crearMazo(deck, onSucces)),
+    importDeck: (deckShareCode, onSucces) => dispatch(HomeActions.importMazo(deckShareCode, onSucces)),
     updateDeck: (deck, onSucces) => dispatch(HomeActions.updateMazo(deck, onSucces)),
     getMazos: () => dispatch(HomeActions.getMazos()),
     deleteDeck: (deckId) => dispatch(HomeActions.deleteMazo(deckId)),

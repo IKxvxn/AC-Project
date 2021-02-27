@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Button, Divider, Typography } from 'antd';
+import { Form, Input, Button, Divider } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import LoginLogo from './loginLogo'
 import * as Rules from '../../assets/formsRules'

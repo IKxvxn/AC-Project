@@ -14,7 +14,7 @@ export const homeLayoutMainContent = {
 export const homeLayoutSecondaryContent = {
   background: "#fff",
   padding: 24,
-  minHeight: "80vh"
+  minHeight: "80vh",
 }
 
 export const homeMainLayout = {
@@ -159,4 +159,30 @@ export const loadingPage = {
   paddingTop: "1rem",
   display: "block",
   width: "100%"
+}
+// Infopage
+
+export const tecnologiasItem = {
+  maxWidth:"9vw",
+   minWidth:"6rem", 
+   height:"auto"
+}
+
+// Cartoons
+
+export const cartoonContaint = {
+  height: "auto",
+  verticalAlign:"middle"
+}
+
+export const cartoonContainer = {
+  textAlign:"center", 
+  height:"100%", 
+  overflow:"hidden"
+}
+
+export const cartoonAlignHelper = {
+  display:"inline-block", 
+  verticalAlign:"middle", 
+  height:"100%"
 }

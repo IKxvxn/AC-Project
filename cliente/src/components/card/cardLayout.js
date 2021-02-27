@@ -16,6 +16,7 @@ class cardLayout extends Component {
 
     this.state = {
       deck: deck,
+      deckAttributes: [],
       filteredData: deck.cards,
       filter: ""
     }
@@ -28,10 +29,21 @@ class cardLayout extends Component {
   getDeck = () => {
     let deck = this.props.decks.find(deck => deck._id === this.props.match.params.mazoId)
     if (deck === undefined) {
-      return { name: "Cargando...", _id: 0, colorKey: 0, bannerkey: 0, cards: [] }
+      return { name: "Cargando...", _id: 0, colorKey: 0, bannerkey: 0, cards: [], deckAttributes: [] }
     }
     return deck
   }
+
+  getDeckAttributes = () => {
+    let deckAttributes = []
+    if(this.state.deck.cards.length!==0) {
+      this.state.deck.cards[0].details.map(attribute => deckAttributes.push({fact:attribute.fact, description:""}))
+      this.setState({deckAttributes})
+    }
+    else {
+      this.setState({deckAttributes})
+    }
+  } 
 
   onSearchAux = (filter) => {
     if (filter !== "") {
@@ -66,6 +78,7 @@ class cardLayout extends Component {
                 deckId={this.state.deck._id}
                 cardName="Añadir Carta"
                 cardData={this.cardPlaceholderText}
+                deckAttributes={this.state.deckAttributes}
               />
 
               {this.state.filteredData.map((card) => (
@@ -91,7 +104,7 @@ class cardLayout extends Component {
       </Fragment>
     );
   }
-  componentDidUpdate(oldProps) {
+  componentDidUpdate(oldProps, oldState) {
     if (oldProps.isLoading === true && this.props.isLoading === false) {
       let deck = this.getDeck()
       this.setState({ deck: deck, filteredData: deck.cards })
@@ -100,8 +113,11 @@ class cardLayout extends Component {
       let deck = this.getDeck()
       this.setState({ deck: deck })
       this.onSearchAux(this.state.filter)
+      this.getDeckAttributes()
     }
+
   }
+  componentDidMount(){this.getDeckAttributes()}
 }
 
 export default withRouter(cardLayout)

@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 
 const decksSchema = mongoose.Schema({
   _id: {type: String},
+  shareCode: {type: String},
   owner: {type: String},
   name: {type: String},
   colorKey:{type: Number},
